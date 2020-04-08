@@ -2,9 +2,11 @@
 #include <random>
 #include <iostream>
 
+#include "Stat.h"
 #include "common.h"
 #include "Grid2D.h"
 #include "plot.h"
+
 
 
 
@@ -29,25 +31,48 @@ void populate(Grid2D<N> &grid, int n_S, int n_I, int n_R, std::mt19937 &rng) {
 	}
 }
 
-int main(void) { 
-	constexpr int N = 10;
-	std::random_device rd{};
-	std::mt19937 rng(rd());
-	
-	
-	Grid2D<N> grid;
-	populate(grid, 500, 1, 0, rng);
-	
-	for (int i = 0; i < 1000; i++) {
+template<int N>
+Stat::Statistic run_experiment(Grid2D<N> &grid, std::mt19937 &rng) {
+	grid.clear();
+	populate(grid, 5000, 10, 0, rng);
+
+	int count = 0;
+	while (grid.getI().size()) {
 		grid.update(rng);
 		create_plot(0.0f, N);
 		plot_entities(grid.getEntities(), grid.getS(), "blue");
 		plot_entities(grid.getEntities(), grid.getI(), "red");
-		plot_entities(grid.getEntities(), grid.getR(), "grey");
+		//plot_entities(grid.getEntities(), grid.getR(), "grey");
 		plot_wait();
+		count++;
 	}
 
-	std::cout << "COUNT: " << grid.count << std::endl;
+	return { (float)grid.getS().size(), (float)grid.getR().size(), (float)count };
+}
+
+void print_statistics(const std::vector<Stat::Statistic> &statistics) {
+	const auto sample_mean = Stat::sample_mean(statistics);
+	const auto sample_var = Stat::sample_variance(sample_mean, statistics);
+	Stat::print_stat(sample_mean);
+	Stat::print_stat(sample_var);
+}
+
+int main(void) { 
+	constexpr int N = 20;
+	Grid2D<N> grid;
+	
+	std::random_device rd{};
+	std::mt19937 rng(rd());
+		
+	std::vector<Stat::Statistic> statistics;
+
+	for (int i = 0; i < 5; i++) {
+		statistics.push_back(run_experiment(grid, rng));
+		Stat::print_stat(statistics.back());
+	}
+
+	print_statistics(statistics);
+
 	std::cout << "Pause...";
 	std::cin.get();
 	return 0;

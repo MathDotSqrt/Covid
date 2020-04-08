@@ -5,7 +5,7 @@
 #include "Grid2D.h"
 
 #ifndef _DEBUG
-#define MATPLOTLIB
+//#define MATPLOTLIB
 #endif
 
 namespace plt = matplotlibcpp;
@@ -38,7 +38,7 @@ void plot_entities(const std::vector<Entity> &entities, const std::unordered_set
 
 	//std::string abc = "";
 
-	plt::plot(x, y, { {"marker", "o"}, {"linestyle", "none"}, {"color", color} });
+	plt::plot(x, y, { {"marker", "."}, {"linestyle", "none"}, {"color", color} });
 
 
 #endif

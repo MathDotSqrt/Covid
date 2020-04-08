@@ -13,8 +13,6 @@ template<int N>
 class Grid2D {
 
 public:
-	int count = 0;
-
 	i32 insertEntity(Entity e) {
 		entities.push_back(e);
 		auto id = entities.size() - 1;
@@ -35,6 +33,19 @@ public:
 		Util::move_elements(R, new_R);
 	}
 	
+	void clear() {
+		entities.clear();
+		S.clear();
+		I.clear();
+		R.clear();
+		new_I.clear();
+		new_R.clear();
+
+		std::for_each(begin(grid), end(grid), [](auto &grid) {
+			grid.clear();
+		});
+	}
+
 	const std::vector<Entity> &getEntities() {
 		return entities;
 	}
@@ -56,7 +67,7 @@ private:
 		for (int i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
 			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
-			Util::move_unit(e, 0, N, rng);
+			Util::move_entity(e, 0, N, rng);
 			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
 
 			if (current_quadrant != prev_quadrant) {
@@ -65,7 +76,6 @@ private:
 
 				old_set.erase(old_set.find(i));
 				new_set.emplace(i);
-				count++;
 			}
 		}
 	}
