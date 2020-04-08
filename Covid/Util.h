@@ -5,17 +5,15 @@
 #include <random>
 #include "glm.hpp"
 
-constexpr f32 MAX_MAGNITUDE = 0.1f;
-constexpr f32 PI = 3.14159265359f;
-constexpr f32 EPSILON = 0.001f;
 
-constexpr f32 RADIUS = .5f;
-constexpr f32 RADIUS2 = RADIUS * RADIUS;
-
-constexpr f32 BETA = 0.1f;
 
 
 namespace Util {
+
+	bool random_percent(float percent_true, std::mt19937 &rng) {
+		const std::uniform_real_distribution<f32> U(0, 1);
+		return U(rng) <= percent_true;
+	}
 
 	template<typename RNG>
 	void move_unit(Entity &entity, f32 min, f32 max, RNG &rng) {
@@ -33,7 +31,7 @@ namespace Util {
 	}
 
 	template<typename FUNC>
-	void interact(const Entity &infected, std::vector<Entity> &entities, std::unordered_set<i32> &quadrant, FUNC interaction, std::mt19937 &rng) {
+	void test_transmission(const Entity &infected, std::vector<Entity> &entities, std::unordered_set<i32> &quadrant, FUNC transmitted, std::mt19937 &rng) {
 		if (infected.status == Status::INFECTED) {
 			std::uniform_real_distribution<f32> U(0, 1);
 
@@ -43,13 +41,42 @@ namespace Util {
 				if (
 					e.status == Status::SUSCEPTIBLE 
 					&& glm::distance(infected.pos, e.pos) <= RADIUS 
-					&& U(rng) <= BETA
+					&& Util::random_percent(BETA, rng)
 				) {
-					interaction(id);
+					transmitted(id);
 				}
 			});
 
 		}
+	}
+
+	template<int N, typename FUNC>
+	void iterate_neighbors(int r, int c, std::array<std::unordered_set<i32>, N*N> &grid, FUNC &function) {
+		for (int j = -1; j <= 1; j++) {
+			const int new_row = j + r;
+			if (new_row < 0 || new_row >= N) {
+				continue;
+			}
+
+			for (int i = -1; i <= 1; i++) {
+				const int new_col = i + c;
+				if (new_col < 0 || new_col >= N) {
+					continue;
+				}
+
+				auto &set  = grid[new_col + new_row * N];
+				function(set);
+			}
+		}
+	}
+
+	template<typename T>
+	void move_elements(T &dest, T &source) {
+		for (const auto id : source) {
+			dest.insert(id);
+		}
+
+		source.clear();
 	}
 }
 

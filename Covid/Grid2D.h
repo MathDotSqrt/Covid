@@ -28,36 +28,10 @@ public:
 	}
 
 	void update(std::mt19937 &rng) {
-		for (int i = 0; i < entities.size(); i++) {
-			auto &e = entities[i];
-			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
-			Util::move_unit(e, 0, N, rng);
-			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
-
-			if (current_quadrant != prev_quadrant) {
-				auto &old_set = getSet(prev_quadrant);
-				auto &new_set = getSet(current_quadrant);
-
-				old_set.erase(old_set.find(i));
-				new_set.emplace(i);
-				count++;
-			}
-		}
-
-
-		auto interaction = [this](i32 id) {
-			this->infect(id);
-		};
-
-		for (int j = 0; j < N; j++) {
-			for (int i = 0; i < N; i++) {
-				for (const auto subjectID : getSet(i, j)) {
-					const Entity subject = entities[subjectID];
-					Util::interact(subject, entities, getSet(i, j), interaction, rng);
-
-				}
-			}
-		}
+		moveEntities(rng);
+		stepInfect(rng);
+		Util::move_elements(I, new_I);
+		Util::move_elements(R, new_R);
 	}
 	
 	const std::vector<Entity> &getEntities() {
@@ -77,8 +51,54 @@ public:
 	}
 
 private:
-	std::unordered_set<i32> &getSet(int i, int j) {
-		const int grid_index = i + j * N;
+	void moveEntities(std::mt19937 &rng) {
+		for (int i = 0; i < entities.size(); i++) {
+			auto &e = entities[i];
+			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
+			Util::move_unit(e, 0, N, rng);
+			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
+
+			if (current_quadrant != prev_quadrant) {
+				auto &old_set = getSet(prev_quadrant);
+				auto &new_set = getSet(current_quadrant);
+
+				old_set.erase(old_set.find(i));
+				new_set.emplace(i);
+				count++;
+			}
+		}
+	}
+
+	void stepInfect(std::mt19937 &rng) {
+		auto interaction = [this](i32 id) {
+			this->infect(id);
+		};
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < N; c++) {
+				for (const auto subjectID : getSet(c, r)) {
+					const auto &entity = entities[subjectID];
+
+					auto simulate_subject = [&](auto &quadrant) {
+						Util::test_transmission(entity, this->entities, quadrant, interaction, rng);
+					};
+
+					Util::iterate_neighbors<N>(r, c, grid, simulate_subject);
+
+				}
+			}
+		}
+	}
+
+	void stepRemove(std::mt19937 &rng) {
+		for (const auto id : I) {
+			if (Util::random_percent(GAMMA, rng)) {
+				recover(id);
+			}
+		}
+	}
+
+	std::unordered_set<i32> &getSet(int c, int r) {
+		const int grid_index = c + r * N;
 		return grid[grid_index];
 	}
 
@@ -98,9 +118,8 @@ private:
 		auto &e = entities[id];
 		assert(e.status == Status::SUSCEPTIBLE);
 		e.status = Status::INFECTED;
-
 		S.erase(id); 
-		I.insert(id);
+		new_I.insert(id);
 	}
 
 	void recover(i32 id) {
@@ -109,13 +128,16 @@ private:
 
 		e.status = Status::REMOVED;
 		I.erase(id);
-		R.insert(id);
+		new_R.insert(id);
 	}
 
 	std::vector<Entity> entities;
 	std::unordered_set<i32> S;
 	std::unordered_set<i32> I;
 	std::unordered_set<i32> R;
+
+	std::unordered_set<i32> new_I;
+	std::unordered_set<i32> new_R;
 
 	std::array<std::unordered_set<i32>, N*N> grid;
 
