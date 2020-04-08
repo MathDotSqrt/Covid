@@ -3,17 +3,15 @@
 #include "Entity.h"
 #include <vector>
 #include <random>
-#include "glm.hpp"
+#include <unordered_set>
 
+#include "glm.hpp"
 
 
 
 namespace Util {
 
-	bool random_percent(float percent_true, std::mt19937 &rng) {
-		const std::uniform_real_distribution<f32> U(0, 1);
-		return U(rng) <= percent_true;
-	}
+	bool random_percent(float percent_true, std::mt19937 &rng);
 
 	template<typename RNG>
 	void move_unit(Entity &entity, f32 min, f32 max, RNG &rng) {

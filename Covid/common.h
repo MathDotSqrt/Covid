@@ -23,4 +23,4 @@ constexpr f32 RADIUS = .5f;
 constexpr f32 RADIUS2 = RADIUS * RADIUS;
 
 constexpr f32 BETA = 0.1f;
-constexpr f32 GAMMA = 0.1f;
+constexpr f32 GAMMA = 0.03f;

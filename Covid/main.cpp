@@ -43,7 +43,7 @@ int main(void) {
 		create_plot(0.0f, N);
 		plot_entities(grid.getEntities(), grid.getS(), "blue");
 		plot_entities(grid.getEntities(), grid.getI(), "red");
-		//plot_entities(grid.getEntities(), grid.getR(), "grey");
+		plot_entities(grid.getEntities(), grid.getR(), "grey");
 		plot_wait();
 	}
 

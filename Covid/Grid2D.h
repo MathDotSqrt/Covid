@@ -30,6 +30,7 @@ public:
 	void update(std::mt19937 &rng) {
 		moveEntities(rng);
 		stepInfect(rng);
+		stepRemove(rng);
 		Util::move_elements(I, new_I);
 		Util::move_elements(R, new_R);
 	}
@@ -90,9 +91,13 @@ private:
 	}
 
 	void stepRemove(std::mt19937 &rng) {
-		for (const auto id : I) {
+		auto iter = I.begin();
+		while (iter != I.end()) {
 			if (Util::random_percent(GAMMA, rng)) {
-				recover(id);
+				iter = recover(iter);
+			}
+			else{
+				iter++;
 			}
 		}
 	}
@@ -118,7 +123,7 @@ private:
 		auto &e = entities[id];
 		assert(e.status == Status::SUSCEPTIBLE);
 		e.status = Status::INFECTED;
-		S.erase(id); 
+		S.erase(id);
 		new_I.insert(id);
 	}
 
@@ -129,6 +134,15 @@ private:
 		e.status = Status::REMOVED;
 		I.erase(id);
 		new_R.insert(id);
+	}
+
+	auto recover(const std::unordered_set<i32>::const_iterator &iter) {
+		const auto id = *iter;
+		auto &e = entities[id];
+		assert(e.status == Status::INFECTED);
+		e.status = Status::REMOVED;
+		new_R.insert(id);
+		return I.erase(iter);
 	}
 
 	std::vector<Entity> entities;
