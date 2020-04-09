@@ -8,16 +8,17 @@
 
 namespace Stat {
 	struct Statistic {
-		f32 num_susceptible = 0;
-		f32 num_removed = 0;
-		f32 num_steps = 0;
+		f64 num_susceptible = 0;
+		f64 num_removed = 0;
+		f64 num_steps = 0;
 
-		Statistic operator+ (const Statistic &rhs);
-		Statistic operator- (const Statistic &rhs);
-		Statistic operator* (const Statistic &rhs);
+		Statistic operator+ (const Statistic &rhs) const;
+		Statistic operator- (const Statistic &rhs) const;
+		Statistic operator* (const Statistic &rhs) const;
+		Statistic operator* (const f32 &rhs) const ;
 
 		template<typename gentype>
-		Statistic operator/ (const gentype &t) {
+		Statistic operator/ (const gentype &t) const {
 			return {
 				num_susceptible / t,
 				num_removed / t,
@@ -27,17 +28,14 @@ namespace Stat {
 		}
 	};
 
-	Statistic addStat(const Statistic &s1, const Statistic &s2);
-	Statistic subStat(const Statistic &s1, const Statistic &s2);
-	Statistic mulStat(const Statistic &s1, const Statistic &s2);
-	Statistic divStat(const Statistic &s1, const Statistic &s2);
-	Statistic divStat(const Statistic &s1, int d);
-
+	Statistic sqrt(const Statistic &s);
+	
 	Statistic sample_mean(const std::vector<Statistic> &stats);
 	Statistic sample_variance(const Statistic &sample_mean, const std::vector<Statistic> &stats);
 	
-	Statistic t_dist() {
-		std::student_t_distribution<f32> dist{};
+	template<typename T>
+	T t_half_interval(f32 t_value, T std, int n) {
+		return (std / std::sqrt(n)) * t_value;
 	}
 
 	void print_stat(const Statistic &s);

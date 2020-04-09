@@ -36,8 +36,11 @@ Stat::Statistic run_experiment(Grid2D<N> &grid, std::mt19937 &rng) {
 	grid.clear();
 	populate(grid, 5000, 10, 0, rng);
 
+	std::cout << "num_susceptible,num_infected,num_recovered\n";
+
 	int count = 0;
 	while (grid.getI().size()) {
+		std::cout << grid.getS().size() << ',' << grid.getI().size() << ',' << grid.getR().size() << '\n';
 		grid.update(rng);
 		create_plot(0.0f, N);
 		plot_entities(grid.getEntities(), grid.getS(), "blue");
@@ -55,22 +58,22 @@ void print_statistics(const std::vector<Stat::Statistic> &statistics) {
 	const auto sample_var = Stat::sample_variance(sample_mean, statistics);
 	Stat::print_stat(sample_mean);
 	Stat::print_stat(sample_var);
+
+	Stat::print_stat(sample_mean);
+	Stat::print_stat(t_half_interval(t_05_100, Stat::sqrt(sample_var), NUM_EXPERIMENTS));
 }
 
 int main(void) { 
-	constexpr int N = 20;
-	Grid2D<N> grid;
+	Grid2D<NUM_GRIDS> grid;
 	
 	std::random_device rd{};
 	std::mt19937 rng(rd());
 		
 	std::vector<Stat::Statistic> statistics;
-
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < NUM_EXPERIMENTS; i++) {
 		statistics.push_back(run_experiment(grid, rng));
 		Stat::print_stat(statistics.back());
 	}
-
 	print_statistics(statistics);
 
 	std::cout << "Pause...";
