@@ -1,6 +1,3 @@
-#define OLC_PGE_APPLICATION
-#include "olcPixelGameEngine.h"
-
 #include <stdio.h>
 #include <random>
 #include <iostream>
@@ -68,13 +65,17 @@ int main(void) {
 	
 	std::random_device rd{};
 	std::mt19937 rng(rd());
-		
-	std::vector<Stat::Statistic> statistics;
-	for (int i = 0; i < NUM_EXPERIMENTS; i++) {
-		statistics.push_back(run_experiment(grid, rng));
-		Stat::print_stat(statistics.back());
-	}
-	print_statistics(statistics);
+
+	Plot basicPlot("Basic");
+	if (basicPlot.Construct(256, 256, 4, 4))
+		basicPlot.Start();
+
+	//std::vector<Stat::Statistic> statistics;
+	//for (int i = 0; i < NUM_EXPERIMENTS; i++) {
+	//	statistics.push_back(run_experiment(grid, rng));
+	//	Stat::print_stat(statistics.back());
+	//}
+	//print_statistics(statistics);
 
 	std::cout << "Pause...";
 	std::cin.get();
