@@ -36,4 +36,7 @@ constexpr f32 t_05_100 = 1.982f;
 
 
 constexpr int NUM_EXPERIMENTS = 101;
+
+constexpr float SCREEN_WIDTH = 1024;
+constexpr float SCREEN_HEIGHT = 1024;
 //constexpr int NUM_EXPERIMENTS = 101;

@@ -13,6 +13,9 @@ template<int N>
 class Grid2D {
 
 public:
+	static constexpr float MAX = N;
+	static constexpr float MIN = 0;
+
 	i32 insertEntity(Entity e) {
 		entities.push_back(e);
 		auto id = entities.size() - 1;

@@ -18,3 +18,4 @@ void Util::move_entity(Entity &entity, f32 min, f32 max, std::mt19937 &rng) {
 	entity.pos += glm::vec2(X, Y);
 	entity.pos = glm::clamp(entity.pos, glm::vec2(min), glm::vec2(max - EPSILON));
 }
+
