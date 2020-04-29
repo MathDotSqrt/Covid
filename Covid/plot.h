@@ -56,7 +56,7 @@ public:
 	}
 
 	bool OnUserUpdate(float delta) override {
-		Clear(olc::VERY_DARK_BLUE);
+		Clear(olc::DARK_GREY);
 		constexpr float SCREEN_SPACE = float(SCREEN_WIDTH) / Grid2D<NUM_GRIDS>::MAX;
 		constexpr float SCALE = .005f;
 
