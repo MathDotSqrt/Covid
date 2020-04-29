@@ -22,11 +22,11 @@ constexpr f32 EPSILON = 0.001f;
 constexpr f32 RADIUS = .5f;
 constexpr f32 RADIUS2 = RADIUS * RADIUS;
 
-constexpr int NUM_GRIDS = 40;
+constexpr int NUM_GRIDS = 20;
 
-constexpr f32 BETA = 0.005f * 2;
-//constexpr f32 GAMMA = 0.01f * 2;
-constexpr f32 GAMMA = 0.001f * 2;
+constexpr f32 BETA = 0.015f;
+constexpr f32 GAMMA = 0.01f;
+//constexpr f32 GAMMA = 0.001f * 2;
 
 
 //confidence interval and df
@@ -35,5 +35,5 @@ constexpr f32 t_05_100 = 1.982f;
 
 
 
-constexpr int NUM_EXPERIMENTS = 1;
+constexpr int NUM_EXPERIMENTS = 101;
 //constexpr int NUM_EXPERIMENTS = 101;

@@ -5,6 +5,7 @@
 
 # OR335 Nonsense
 *.m4a
+*.zip
 
 # User-specific files
 *.rsuser

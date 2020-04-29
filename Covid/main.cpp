@@ -36,11 +36,11 @@ Stat::Statistic run_experiment(Grid2D<N> &grid, std::mt19937 &rng) {
 	grid.clear();
 	populate(grid, 5000, 10, 0, rng);
 
-	std::cout << "num_susceptible,num_infected,num_recovered\n";
+	//std::cout << "num_susceptible,num_infected,num_recovered\n";
 
 	int count = 0;
 	while (grid.getI().size()) {
-		std::cout << grid.getS().size() << ',' << grid.getI().size() << ',' << grid.getR().size() << '\n';
+		//std::cout << grid.getS().size() << ',' << grid.getI().size() << ',' << grid.getR().size() << '\n';
 		grid.update(rng);
 		create_plot(0.0f, N);
 		plot_entities(grid.getEntities(), grid.getS(), "blue");
