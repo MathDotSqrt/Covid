@@ -67,7 +67,7 @@ public:
 
 private:
 	void moveEntities(std::mt19937 &rng) {
-		for (int i = 0; i < entities.size(); i++) {
+		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
 			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
 			Util::move_entity(e, 0, N, rng);

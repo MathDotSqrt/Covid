@@ -4,6 +4,24 @@
 #include "Experiments.h"
 
 
+void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d, float scale, float space) {
+
+	const auto offset = olc::vf2d{ d->sprite->width * scale / 2 , d->sprite->height * scale / 2 };
+	const auto pos = olc::vf2d{ e.pos.x, e.pos.y } * space + offset;
+	
+	switch (e.status) {
+	case Status::SUSCEPTIBLE:
+		engine.DrawDecal(pos, d, { scale, scale }, olc::BLUE);
+		break;
+	case Status::INFECTED:
+		engine.DrawDecal(pos, d, { scale, scale }, olc::RED);
+		break;
+	case Status::REMOVED:
+		engine.DrawDecal(pos, d, { scale, scale }, olc::GREY);
+		break;
+	}
+}
+
 class PlotControl : public olc::PixelGameEngine {
 private:
 	std::mt19937 rng;
@@ -40,23 +58,11 @@ public:
 	bool OnUserUpdate(float delta) override {
 		Clear(olc::VERY_DARK_BLUE);
 		constexpr float SCREEN_SPACE = float(SCREEN_WIDTH) / Grid2D<NUM_GRIDS>::MAX;
-
-		const olc::vf2d scale { .05f, .05f };
+		constexpr float SCALE = .005f;
 
 		grid.update(rng);
 		for (const auto &e : grid.getEntities()) {
-			const auto pos = olc::vf2d{ e.pos.x, e.pos.y } * SCREEN_SPACE;
-			switch (e.status) {
-			case Status::SUSCEPTIBLE:
-				DrawDecal(pos, d, scale, olc::BLUE);
-				break;
-			case Status::INFECTED:
-				DrawDecal(pos, d, scale, olc::RED);
-				break;
-			case Status::REMOVED:
-				DrawDecal(pos, d, scale, olc::GREY);
-				break;
-			}
+			DrawEntity(*this, e, d, SCALE, SCREEN_SPACE);
 		}
 
 		return grid.getI().size() > 0;
