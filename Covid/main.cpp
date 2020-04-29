@@ -1,3 +1,6 @@
+#define OLC_PGE_APPLICATION
+#include "olcPixelGameEngine.h"
+
 #include <stdio.h>
 #include <random>
 #include <iostream>
@@ -6,7 +9,6 @@
 #include "common.h"
 #include "Grid2D.h"
 #include "plot.h"
-
 
 
 
@@ -42,11 +44,11 @@ Stat::Statistic run_experiment(Grid2D<N> &grid, std::mt19937 &rng) {
 	while (grid.getI().size()) {
 		//std::cout << grid.getS().size() << ',' << grid.getI().size() << ',' << grid.getR().size() << '\n';
 		grid.update(rng);
-		create_plot(0.0f, N);
-		plot_entities(grid.getEntities(), grid.getS(), "blue");
-		plot_entities(grid.getEntities(), grid.getI(), "red");
+		//create_plot(0.0f, N);
+		//plot_entities(grid.getEntities(), grid.getS(), "blue");
+		//plot_entities(grid.getEntities(), grid.getI(), "red");
 		//plot_entities(grid.getEntities(), grid.getR(), "grey");
-		plot_wait();
+		//plot_wait();
 		count++;
 	}
 

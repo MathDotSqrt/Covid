@@ -163,6 +163,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Grid2D.h" />
     <ClInclude Include="matplotlib.h" />
+    <ClInclude Include="olcPixelGameEngine.h" />
     <ClInclude Include="plot.h" />
     <ClInclude Include="Stat.h" />
     <ClInclude Include="Util.h" />
