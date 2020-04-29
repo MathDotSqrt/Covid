@@ -20,7 +20,7 @@ public:
 		Clear(olc::BLACK);
 		for (uint8_t x = 0; x < 1; x++)
 			for (uint8_t y = 0; y < 1; y++)
-				DrawCircle(rand() % 256, rand() % 256, 5, olc::Pixel(255-x, 255-y, 255-x));
+				FillCircle(rand() % 256, rand() % 256, 5, olc::Pixel(255-x, 255-y, 255-x));
 		return true;
 	}
 };
