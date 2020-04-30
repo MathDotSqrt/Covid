@@ -4,7 +4,9 @@
 #include "Experiments.h"
 
 
-void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d, float scale, float space) {
+void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d) {
+	constexpr float space = float(SCREEN_WIDTH) / Grid2D<NUM_GRIDS>::MAX;
+	constexpr float scale = .01f;
 
 	const auto offset = olc::vf2d{ d->sprite->width * scale / 2 , d->sprite->height * scale / 2 };
 	const auto pos = olc::vf2d{ e.pos.x, e.pos.y } * space + offset;
@@ -20,6 +22,30 @@ void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d, fl
 		engine.DrawDecal(pos, d, { scale, scale }, olc::GREY);
 		break;
 	}
+}
+
+i32 ControlBackground(olc::PixelGameEngine &engine, int N) {
+	const auto layerID = engine.CreateLayer();
+	engine.SetDrawTarget(layerID);
+	engine.Clear(olc::Pixel(240,240,240));
+	
+	for (int r = 0; r < N; r++) {
+		const float y = float(r * SCREEN_HEIGHT) / N;
+		const olc::vf2d pos0 = { 0, y };
+		const olc::vf2d pos1 = { float(SCREEN_WIDTH), y };
+		engine.DrawLine(pos0, pos1, olc::Pixel(20, 20, 20));
+	}
+
+	for (int c = 0; c < N; c++) {
+		const float x = float(c * SCREEN_WIDTH) / N;
+		const olc::vf2d pos0 = { x, 0 };
+		const olc::vf2d pos1 = { x, float(SCREEN_HEIGHT) };
+		engine.DrawLine(pos0, pos1, olc::Pixel(20,20,20));
+	}
+
+	engine.EnableLayer(layerID, true);
+	engine.SetDrawTarget(nullptr);
+	return layerID;
 }
 
 class PlotControl : public olc::PixelGameEngine {
@@ -43,7 +69,8 @@ public:
 		s = new olc::Sprite("../data/res/circle.png");
 		d = new olc::Decal(s);
 
-		Control::populate(grid, 5000, 10, 0, rng);
+		Control::populate(grid, 15000, 10, 0, rng);
+		ControlBackground(*this, NUM_GRIDS);
 
 		return true;
 	}
@@ -56,13 +83,12 @@ public:
 	}
 
 	bool OnUserUpdate(float delta) override {
-		Clear(olc::DARK_GREY);
-		constexpr float SCREEN_SPACE = float(SCREEN_WIDTH) / Grid2D<NUM_GRIDS>::MAX;
-		constexpr float SCALE = .005f;
+		Clear(olc::BLANK);
+		
 
 		grid.update(rng);
 		for (const auto &e : grid.getEntities()) {
-			DrawEntity(*this, e, d, SCALE, SCREEN_SPACE);
+			DrawEntity(*this, e, d);
 		}
 
 		return grid.getI().size() > 0;

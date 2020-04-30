@@ -22,7 +22,7 @@ constexpr f32 EPSILON = 0.001f;
 constexpr f32 RADIUS = .5f;
 constexpr f32 RADIUS2 = RADIUS * RADIUS;
 
-constexpr int NUM_GRIDS = 20;
+constexpr int NUM_GRIDS = 25;
 
 constexpr f32 BETA = 0.015f;
 constexpr f32 GAMMA = 0.01f;

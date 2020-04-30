@@ -84,19 +84,22 @@ private:
 	}
 
 	void stepInfect(std::mt19937 &rng) {
-		auto interaction = [this](i32 id) {
-			this->infect(id);
-		};
 		for (int r = 0; r < N; r++) {
 			for (int c = 0; c < N; c++) {
 				for (const auto subjectID : getSet(c, r)) {
 					const auto &entity = entities[subjectID];
+					
+					if (entity.status != Status::INFECTED)
+						continue;
 
-					auto simulate_subject = [&](auto &quadrant) {
-						Util::test_transmission(entity, this->entities, quadrant, interaction, rng);
+					auto simulate_subject = [this, &entity, &rng](auto &id) {
+						const Entity &subject = entities[id];
+						if (Util::test_transmission(entity, entities[id], rng)) {
+							this->infect(id);
+						}
 					};
 
-					Util::iterate_neighbors<N>(r, c, grid, simulate_subject);
+					Util::for_each_neighbors<N>(r, c, grid, simulate_subject);
 
 				}
 			}
