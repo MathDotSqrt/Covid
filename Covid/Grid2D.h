@@ -4,19 +4,18 @@
 #include <unordered_set>
 #include <stdio.h>
 
-#include "common.h"
-#include "Entity.h"
+#include "Grid.h"
 #include "Util.h"
-
+#include <random>
 
 template<int N>
-class Grid2D {
+class Grid2D : public Grid{
 
 public:
 	static constexpr float MAX = N;
 	static constexpr float MIN = 0;
 
-	i32 insertEntity(Entity e) {
+	EntityID insert(Entity e) override {
 		entities.push_back(e);
 		auto id = entities.size() - 1;
 		
@@ -28,7 +27,7 @@ public:
 		return id;
 	}
 
-	void update(std::mt19937 &rng) {
+	void update(std::mt19937 &rng) override {
 		moveEntities(rng);
 		stepInfect(rng);
 		stepRemove(rng);
@@ -36,7 +35,7 @@ public:
 		Util::move_elements(R, new_R);
 	}
 	
-	void clear() {
+	void clear() override {
 		entities.clear();
 		S.clear();
 		I.clear();
@@ -47,22 +46,6 @@ public:
 		std::for_each(begin(grid), end(grid), [](auto &grid) {
 			grid.clear();
 		});
-	}
-
-	const std::vector<Entity> &getEntities() {
-		return entities;
-	}
-	
-	const std::unordered_set<i32> &getS() {
-		return S;
-	}
-
-	const std::unordered_set<i32> &getI() {
-		return I;
-	}
-
-	const std::unordered_set<i32> &getR() {
-		return R;
 	}
 
 private:
@@ -152,7 +135,7 @@ private:
 		new_R.insert(id);
 	}
 
-	auto recover(const std::unordered_set<i32>::const_iterator &iter) {
+	auto recover(const std::unordered_set<EntityID>::const_iterator &iter) {
 		const auto id = *iter;
 		auto &e = entities[id];
 		assert(e.status == Status::INFECTED);
@@ -160,11 +143,6 @@ private:
 		new_R.insert(id);
 		return I.erase(iter);
 	}
-
-	std::vector<Entity> entities;
-	std::unordered_set<i32> S;
-	std::unordered_set<i32> I;
-	std::unordered_set<i32> R;
 
 	std::unordered_set<i32> new_I;
 	std::unordered_set<i32> new_R;

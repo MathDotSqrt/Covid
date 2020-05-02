@@ -13,17 +13,17 @@ namespace Control {
 
 		for (int i = 0; i < n_S; i++) {
 			Entity e(glm::vec2(U(rng), U(rng)), Status::SUSCEPTIBLE);
-			grid.insertEntity(e);
+			grid.insert(e);
 		}
 
 		for (int i = 0; i < n_I; i++) {
 			Entity e(glm::vec2(U(rng), U(rng)), Status::INFECTED);
-			grid.insertEntity(e);
+			grid.insert(e);
 		}
 
 		for (int i = 0; i < n_R; i++) {
 			Entity e(glm::vec2(U(rng), U(rng)), Status::REMOVED);
-			grid.insertEntity(e);
+			grid.insert(e);
 		}
 	}
 	
