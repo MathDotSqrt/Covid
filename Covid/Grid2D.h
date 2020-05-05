@@ -70,7 +70,7 @@ private:
 						if (subjectID == entityID) return;
 						
 						Util::charge_entity(entity, this->entities[entityID]);
-						Util::charge_entity_wall(entity, MIN, MAX);
+						//Util::charge_entity_wall(entity, MIN, MAX);
 					};
 
 					Util::for_each_neighbors<N>(r, c, grid, lambda);
