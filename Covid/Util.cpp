@@ -19,19 +19,22 @@ glm::vec2 Util::random_vel(float max_mag, std::mt19937 &rng) {
 	return glm::vec2(X, Y);
 }
 
-void Util::move_entity(Entity &entity, f32 min, f32 max, std::mt19937 &rng) {
-	entity.vel = random_vel(MAX_MAGNITUDE, rng);
-
-	entity.pos += entity.vel;
+void Util::clampEntity(Entity &entity, f32 min, f32 max) {
 	entity.pos = glm::clamp(entity.pos, glm::vec2(min + EPSILON), glm::vec2(max - EPSILON));
 }
 
+
+void Util::move_entity(Entity &entity, f32 min, f32 max, std::mt19937 &rng) {
+	entity.vel = random_vel(MAX_MAGNITUDE, rng);
+	entity.pos += entity.vel;
+}
+
 void Util::move_entity_smart(Entity &entity, f32 min, f32 max, std::mt19937 &rng) {
+	
 	if (Util::random_percent(CHANGE_DIR, rng)) {
 		entity.vel = random_vel(MAX_MAGNITUDE, rng);
 	}
 	entity.pos += entity.vel;
-	entity.pos = glm::clamp(entity.pos, glm::vec2(min + EPSILON), glm::vec2(max - EPSILON));
 }
 
 bool Util::test_transmission(const Entity &infected, const Entity &subject, std::mt19937 &rng) {

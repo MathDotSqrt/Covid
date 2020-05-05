@@ -57,13 +57,15 @@ public:
 	static constexpr float MAX = N;
 	static constexpr float MIN = 0;
 private:
-	
 
 	void moveEntities(std::mt19937 &rng) {
 		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
 			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
+			
 			Util::move_entity_smart(e, getMin(), getMax(), rng);
+			Util::clampEntity(e, MIN, MAX);
+			
 			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
 
 			if (current_quadrant != prev_quadrant) {
