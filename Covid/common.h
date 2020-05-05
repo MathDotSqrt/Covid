@@ -26,7 +26,8 @@ constexpr f32 t_05_100 = 1.982f;
 
 /*MOVEMENT CONSTANTS*/
 constexpr f32 MAX_MAGNITUDE = 0.05f;
-constexpr float CHANGE_DIR = .01f;
+constexpr f32 CHANGE_DIR = .01f;
+constexpr f32 CHARGE_CONSTANT = .0001f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/

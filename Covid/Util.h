@@ -14,12 +14,14 @@ namespace Util {
 	bool random_percent(float percent_true, std::mt19937 &rng);
 	glm::vec2 random_vel(float max_mag, std::mt19937 &rng);
 	
-	void clampEntity(Entity &entity, f32 min, f32 max);
+	void clamp_entity(Entity &entity, f32 min, f32 max);
 
-	void move_entity(Entity &entity, f32 min, f32 max, std::mt19937 &rng);
-	void move_entity_smart(Entity &entity, f32 min, f32 max, std::mt19937 &rng);
+	void move_entity(Entity &entity);
+	void move_entity_random(Entity &entity, std::mt19937 &rng);
+	void move_entity_smart(Entity &entity, std::mt19937 &rng);
 	
-	
+	void charge_entity(Entity &entity, const Entity &other);
+
 	bool test_transmission(const Entity &infected, const Entity &subject, std::mt19937 &rng);
 
 	template<int N, typename FUNC>

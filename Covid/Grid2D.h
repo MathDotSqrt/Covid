@@ -59,13 +59,22 @@ public:
 private:
 
 	void moveEntities(std::mt19937 &rng) {
+		for (auto &e : entities) {
+			/*auto lambda = [&e, this](EntityID entityID) {
+				Util::charge_entity(e, this->entities[entityID]);
+			};
+			Util::for_each_neighbors<N>(prev_quadrant.x, prev_quadrant.y, grid, lambda);*/
+			Util::move_entity_smart(e, rng);
+		}
+
+
 		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
 			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
 			
-			Util::move_entity_smart(e, getMin(), getMax(), rng);
-			Util::clampEntity(e, MIN, MAX);
-			
+			Util::move_entity(e);
+			Util::clamp_entity(e, MIN, MAX);
+
 			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
 
 			if (current_quadrant != prev_quadrant) {
