@@ -17,7 +17,7 @@ typedef double f64;
 
 /*MATH CONSTANTS*/
 constexpr f32 PI = 3.14159265359f;
-constexpr f32 EPSILON = 0.001f;
+constexpr f32 EPSILON = 0.1f;
 
 //confidence interval and df
 constexpr f32 t_05_5 = 2.571f;
@@ -25,14 +25,18 @@ constexpr f32 t_05_100 = 1.982f;
 /*MATH CONSTANTS*/
 
 /*MOVEMENT CONSTANTS*/
-constexpr f32 MAX_MAGNITUDE = 0.05f;
+constexpr f32 MAX_MAGNITUDE = 0.007f;
 constexpr f32 CHANGE_DIR = .01f;
-constexpr f32 CHARGE_CONSTANT = .0001f;
+
+constexpr f32 MAX_CHARGE_DIST = 1.0f;
+constexpr f32 MAX_CHARGE = .002f;
+constexpr f32 CHARGE_CONSTANT = .00001f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/
-constexpr f32 BETA = 0.07f / 4;
+constexpr f32 BETA = 0.07f * 4;
 constexpr f32 GAMMA = 0.05f / 4;
+
 /*INFECTION RATE*/
 
 

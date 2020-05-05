@@ -29,28 +29,42 @@ void Util::move_entity(Entity &entity) {
 	entity.pos += entity.vel;
 }
 
-void Util::move_entity_random(Entity &entity, std::mt19937 &rng) {
+void Util::entity_target_vel_random(Entity &entity, std::mt19937 &rng) {
 	entity.vel = Util::random_vel(MAX_MAGNITUDE, rng);
-	//entity.pos += entity.vel;
 }
 
-void Util::move_entity_smart(Entity &entity, std::mt19937 &rng) {
+void Util::entity_target_vel_smart(Entity &entity, std::mt19937 &rng) {
 	if (Util::random_percent(CHANGE_DIR, rng)) {
 		entity.vel = random_vel(MAX_MAGNITUDE, rng);
 	}
-	//entity.pos += entity.vel;
+}
+
+template<typename T>
+T charge_force(const T &a, const T &other) {
+	const auto delta = a - other;
+	const float r_2 = glm::length2(delta);
+
+	if (r_2 > MAX_CHARGE_DIST * MAX_CHARGE_DIST) {
+		return T(0);
+	}
+
+	const float inv_r_2 = 1 / r_2;
+
+	const auto coef = glm::min(CHARGE_CONSTANT / r_2, MAX_CHARGE);
+
+	T force = coef * glm::normalize(delta);
+	return force;
 }
 
 void Util::charge_entity(Entity &entity, const Entity &other) {
-	const auto delta = entity.pos - other.pos;
-	const float r_2 = glm::length2(delta);
-	if (r_2 <= EPSILON) {
-		return;
-	}
-	
-	const float inv_r_2 = 1 / r_2;
+	entity.vel += charge_force<glm::vec2>(entity.pos, other.pos);
+}
 
-	entity.vel += CHARGE_CONSTANT * glm::normalize(delta) * inv_r_2;
+void Util::charge_entity_wall(Entity &entity, f32 min, f32 max) {
+	//entity.vel.x += charge_force<glm::vec1>((glm::vec1)entity.pos.x, (glm::vec1)min).x;
+	//entity.vel.x += charge_force<glm::vec1>((glm::vec1)entity.pos.x, (glm::vec1)max).x;
+	//entity.vel.y += charge_force<glm::vec1>((glm::vec1)entity.pos.y, (glm::vec1) min).x;
+	//entity.vel.y += charge_force<glm::vec1>((glm::vec1)entity.pos.y, (glm::vec1)max).x;
 }
 
 bool Util::test_transmission(const Entity &infected, const Entity &subject, std::mt19937 &rng) {

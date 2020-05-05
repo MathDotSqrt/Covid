@@ -17,10 +17,11 @@ namespace Util {
 	void clamp_entity(Entity &entity, f32 min, f32 max);
 
 	void move_entity(Entity &entity);
-	void move_entity_random(Entity &entity, std::mt19937 &rng);
-	void move_entity_smart(Entity &entity, std::mt19937 &rng);
+	void entity_target_vel_random(Entity &entity, std::mt19937 &rng);
+	void entity_target_vel_smart(Entity &entity, std::mt19937 &rng);
 	
 	void charge_entity(Entity &entity, const Entity &other);
+	void charge_entity_wall(Entity &entity, f32 min, f32 max);
 
 	bool test_transmission(const Entity &infected, const Entity &subject, std::mt19937 &rng);
 

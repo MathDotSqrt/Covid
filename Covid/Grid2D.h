@@ -59,14 +59,25 @@ public:
 private:
 
 	void moveEntities(std::mt19937 &rng) {
-		for (auto &e : entities) {
-			/*auto lambda = [&e, this](EntityID entityID) {
-				Util::charge_entity(e, this->entities[entityID]);
-			};
-			Util::for_each_neighbors<N>(prev_quadrant.x, prev_quadrant.y, grid, lambda);*/
-			Util::move_entity_smart(e, rng);
-		}
+		
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < N; c++) {
+				for (const auto subjectID : getSet(c, r)) {
+					auto &entity = entities[subjectID];
+					//entity.vel = glm::vec2(0);
+					Util::entity_target_vel_smart(entity, rng);
+					auto lambda = [subjectID, &entity, this](EntityID entityID) {
+						if (subjectID == entityID) return;
+						
+						Util::charge_entity(entity, this->entities[entityID]);
+						Util::charge_entity_wall(entity, MIN, MAX);
+					};
 
+					Util::for_each_neighbors<N>(r, c, grid, lambda);
+
+				}
+			}
+		}
 
 		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
