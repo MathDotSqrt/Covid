@@ -12,7 +12,12 @@
 namespace Util {
 
 	bool random_percent(float percent_true, std::mt19937 &rng);
+	glm::vec2 random_vel(float max_mag, std::mt19937 &rng);
+	
 	void move_entity(Entity &entity, f32 min, f32 max, std::mt19937 &rng);
+	void move_entity_smart(Entity &entity, f32 min, f32 max, std::mt19937 &rng);
+	
+	
 	bool test_transmission(const Entity &infected, const Entity &subject, std::mt19937 &rng);
 
 	template<int N, typename FUNC>

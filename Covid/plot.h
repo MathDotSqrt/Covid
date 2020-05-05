@@ -9,7 +9,7 @@ void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d) {
 	constexpr float scale = .01f;
 
 	const auto offset = olc::vf2d{ d->sprite->width * scale / 2 , d->sprite->height * scale / 2 };
-	const auto pos = olc::vf2d{ e.pos.x, e.pos.y } * space + offset;
+	const auto pos = olc::vf2d{ e.pos.x, e.pos.y } * space - offset;
 	
 	switch (e.status) {
 	case Status::SUSCEPTIBLE:

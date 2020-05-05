@@ -10,8 +10,10 @@ enum class Status : u8{
 
 struct Entity {
 	glm::vec2 pos;
+	glm::vec2 vel;
 	Status status;
 
 	Entity(glm::vec2 pos);
 	Entity(glm::vec2 pos, Status status);
+	Entity(glm::vec2 pos, glm::vec2 vel, Status status);
 };
