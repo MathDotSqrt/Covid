@@ -12,8 +12,7 @@ template<int N>
 class Grid2D : public Grid{
 
 public:
-	static constexpr float MAX = N;
-	static constexpr float MIN = 0;
+	
 
 	EntityID insert(Entity e) override {
 		entities.push_back(e);
@@ -48,12 +47,23 @@ public:
 		});
 	}
 
+	f32 getMin() const override {
+		return MIN;
+	}
+
+	f32 getMax() const override {
+		return MAX;
+	}
+
 private:
+	static constexpr float MAX = N;
+	static constexpr float MIN = 0;
+
 	void moveEntities(std::mt19937 &rng) {
 		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
 			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
-			Util::move_entity(e, 0, N, rng);
+			Util::move_entity(e, getMin(), getMax(), rng);
 			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
 
 			if (current_quadrant != prev_quadrant) {

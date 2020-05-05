@@ -13,10 +13,15 @@ public:
 	virtual void update(std::mt19937 &rng) = 0;
 	virtual void clear() = 0;
 
+	virtual f32 getMin() const = 0;
+	virtual f32 getMax() const = 0;
+
+
 	const std::vector<Entity> &getEntities() const;
 	const std::unordered_set<EntityID> &getS() const;
 	const std::unordered_set<EntityID> &getI() const;
 	const std::unordered_set<EntityID> &getR() const;
+
 
 protected:
 	std::vector<Entity> entities;

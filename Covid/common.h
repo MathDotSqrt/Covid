@@ -19,13 +19,14 @@ constexpr f32 MAX_MAGNITUDE = 0.2f;
 constexpr f32 PI = 3.14159265359f;
 constexpr f32 EPSILON = 0.001f;
 
-constexpr f32 RADIUS = .5f;
+//constexpr f32 RADIUS = .5f;
+constexpr f32 RADIUS = .3f;
 constexpr f32 RADIUS2 = RADIUS * RADIUS;
 
 constexpr int NUM_GRIDS = 25;
 
-constexpr f32 BETA = 0.015f;
-constexpr f32 GAMMA = 0.01f;
+constexpr f32 BETA = 0.07f;
+constexpr f32 GAMMA = 0.05f;
 //constexpr f32 GAMMA = 0.001f * 2;
 
 
