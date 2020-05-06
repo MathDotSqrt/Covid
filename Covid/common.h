@@ -30,12 +30,12 @@ constexpr f32 CHANGE_DIR = .01f;
 
 constexpr f32 MAX_CHARGE_DIST = 1.0f;
 constexpr f32 MAX_CHARGE = .02f;
-constexpr f32 CHARGE_CONSTANT = .00005f;
+constexpr f32 CHARGE_CONSTANT = .00002f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/
-constexpr f32 BETA = 0.07f / 4;
-constexpr f32 GAMMA = 0.05f / 40;
+constexpr f32 BETA = 0.2f / 10;
+constexpr f32 GAMMA = 0.07f / 10;
 
 /*INFECTION RATE*/
 
