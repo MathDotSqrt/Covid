@@ -156,6 +156,7 @@
     <ClCompile Include="Experiments.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Grid2D.cpp" />
+    <ClCompile Include="GridCommunity.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="plot.cpp" />
     <ClCompile Include="Stat.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Experiments.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Grid2D.h" />
+    <ClInclude Include="GridCommunity.h" />
     <ClInclude Include="matplotlib.h" />
     <ClInclude Include="olcPixelGameEngine.h" />
     <ClInclude Include="plot.h" />

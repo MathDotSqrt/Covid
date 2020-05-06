@@ -79,5 +79,5 @@ bool PlotControl::OnUserUpdate(float delta) {
 	}
 
 
-	return grid.getI().size() > 0;
+	return grid.getI().size() > 0 || true;
 }

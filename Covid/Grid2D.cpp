@@ -41,6 +41,10 @@ f32 Grid2D::getMax() const {
 	return MAX;
 }
 
+f32 Grid2D::getQuadWidth() const { 
+	return getMax() / NUM_GRIDS;
+}
+
 void Grid2D::moveEntities(std::mt19937 &rng) {
 	setEntitiesTargetVel(rng);
 	for (size_t i = 0; i < entities.size(); i++) {

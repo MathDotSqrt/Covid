@@ -2,6 +2,7 @@
 #include "olcPixelGameEngine.h"
 
 #include "Experiments.h"
+#include "GridCommunity.h"
 
 class PlotControl : public olc::PixelGameEngine {
 private:
@@ -9,7 +10,7 @@ private:
 
 	olc::Sprite *s = nullptr;
 	olc::Decal *d = nullptr;
-	Grid2DSocial grid;
+	GridCommunity grid;
 
 public:
 	PlotControl(std::string name);

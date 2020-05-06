@@ -11,14 +11,15 @@
 class Grid2D : public Grid{
 
 public:
-
 	EntityID insert(Entity e) override;
-	void update(std::mt19937 &rng);
-	void clear();
+	void update(std::mt19937 &rng) override;
+	void clear() override;
 	
 	f32 getMin() const override;
 	f32 getMax() const override;
 	
+	f32 getQuadWidth() const;
+
 	static constexpr float MAX = NUM_GRIDS;
 	static constexpr float MIN = 0;
 protected:
@@ -31,13 +32,11 @@ protected:
 	std::unordered_set<EntityID> &getSet(int c, int r);
 	std::unordered_set<EntityID> &getSet(glm::i32vec2 vec);
 
-private:
-	void moveEntities(std::mt19937 &rng);
-	void stepInfect(std::mt19937 &rng);
+	virtual void moveEntities(std::mt19937 &rng);
+	virtual void stepInfect(std::mt19937 &rng);
 	void stepRemove(std::mt19937 &rng);
 
 	void insertSIR(EntityID id, Status status);
-
 	void infect(EntityID id);
 	void recover(EntityID id);
 	auto recover(const std::unordered_set<EntityID>::const_iterator &iter);

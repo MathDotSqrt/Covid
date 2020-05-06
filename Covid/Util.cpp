@@ -23,6 +23,9 @@ void Util::clamp_entity(Entity &entity, f32 min, f32 max) {
 	entity.pos = glm::clamp(entity.pos, glm::vec2(min + EPSILON), glm::vec2(max - EPSILON));
 }
 
+void Util::clamp_entity(Entity &entity, glm::vec2 min, glm::vec2 max) {
+	entity.pos = glm::clamp(entity.pos, min + glm::vec2(EPSILON), max - glm::vec2(EPSILON));
+}
 
 void Util::move_entity(Entity &entity) {
 	entity.pos += entity.vel;
