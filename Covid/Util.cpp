@@ -56,8 +56,8 @@ T charge_force(const T &a, const T &other) {
 	return force;
 }
 
-void Util::charge_entity(Entity &entity, const Entity &other) {
-	entity.vel += charge_force<glm::vec2>(entity.pos, other.pos);
+void Util::charge_entity(Entity &entity, const Entity &other, float scale) {
+	entity.vel += scale * charge_force<glm::vec2>(entity.pos, other.pos);
 }
 
 void Util::charge_entity_wall(Entity &entity, f32 min, f32 max) {

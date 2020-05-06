@@ -54,7 +54,7 @@ private:
 
 	olc::Sprite *s = nullptr;
 	olc::Decal *d = nullptr;
-	Grid2DSocial<NUM_GRIDS> grid;
+	Grid2DSocialBad<NUM_GRIDS> grid;
 
 public:
 	PlotControl(std::string name) : rng(std::random_device()()){
@@ -69,7 +69,7 @@ public:
 		s = new olc::Sprite("../data/res/circle.png");
 		d = new olc::Decal(s);
 
-		Control::populate(grid, 5000, 10, 0, rng);
+		Control::populate(grid, 5000, 100, 0, rng);
 		ControlBackground(*this, NUM_GRIDS);
 
 		return true;

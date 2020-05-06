@@ -59,23 +59,8 @@ public:
 protected:
 
 	virtual void setEntitiesTargetVel(std::mt19937 &rng) {
-		for (int r = 0; r < N; r++) {
-			for (int c = 0; c < N; c++) {
-				for (const auto subjectID : getSet(c, r)) {
-					auto &entity = entities[subjectID];
-
-					Util::entity_target_vel_smart(entity, rng);
-					auto lambda = [subjectID, &entity, this](EntityID entityID) {
-						if (subjectID == entityID) return;
-
-						Util::charge_entity(entity, this->entities[entityID]);
-						//Util::charge_entity_wall(entity, MIN, MAX);
-					};
-
-					//Util::for_each_neighbors<N>(r, c, grid, lambda);
-
-				}
-			}
+		for (auto &entity : entities) {
+			Util::entity_target_vel_smart(entity, rng);
 		}
 	}
 
@@ -133,6 +118,10 @@ protected:
 				iter++;
 			}
 		}
+	}
+
+	bool isBadActor(EntityID id) {
+		return id > entities.size() - glm::ceil(entities.size() * BAD_ACTOR) - 1;
 	}
 
 	glm::i32vec2 getQuad(const glm::vec2 &pos) {
@@ -208,6 +197,42 @@ protected:
 					};
 
 					Util::for_each_neighbors<N>(r, c, Grid2D<N>::grid, lambda);
+				}
+			}
+		}
+	}
+};
+
+template<int N>
+class Grid2DSocialBad : public Grid2D<N> {
+protected:
+	void setEntitiesTargetVel(std::mt19937 &rng) override {
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < N; c++) {
+				for (const auto subjectID : Grid2D<N>::getSet(c, r)) {
+					auto &entity = Grid2D<N>::entities[subjectID];
+
+					Util::entity_target_vel_smart(entity, rng);
+					auto lambda = [subjectID, &entity, this](Grid::EntityID entityID) {
+						if (subjectID == entityID) return;
+
+						Util::charge_entity(entity, this->entities[entityID]);
+					};
+
+					auto lambdaBad = [subjectID, &entity, this](Grid::EntityID entityID) {
+						if (subjectID == entityID) return;
+
+						Util::charge_entity(entity, this->entities[entityID], -1);
+					};
+
+
+					if (!Grid2D<N>::isBadActor(subjectID)) {
+						Util::for_each_neighbors<N>(r, c, Grid2D<N>::grid, lambda);
+					}
+					else {
+						Util::for_each_neighbors<N>(r, c, Grid2D<N>::grid, lambdaBad);
+					}
+					
 				}
 			}
 		}
