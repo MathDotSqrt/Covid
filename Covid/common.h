@@ -34,18 +34,18 @@ constexpr f32 CHARGE_CONSTANT = .00002f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/
-constexpr f32 BETA = 0.3f / 100;
+constexpr f32 BETA = 0.5f / 100;
 constexpr f32 GAMMA = 0.1f / 100;
 
 /*INFECTION RATE*/
 
-constexpr f32 BAD_ACTOR = 0.09f;
+constexpr f32 BAD_ACTOR = 0.01f;
 
 
 constexpr int NUM_GRIDS = 25;
 
 
-constexpr f32 RADIUS = .3f;
+constexpr f32 RADIUS = .3f;	//.3 was golden
 constexpr f32 RADIUS2 = RADIUS * RADIUS;
 
 constexpr int NUM_EXPERIMENTS = 101;

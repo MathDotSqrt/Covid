@@ -22,7 +22,7 @@ void print_statistics(const std::vector<Stat::Statistic> &statistics) {
 int main(void) { 
 	
 	{
-		PlotControl basicPlot("Basic", 123);
+		PlotControl basicPlot("Basic", 1);
 		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1))
 			basicPlot.Start();
 	}
