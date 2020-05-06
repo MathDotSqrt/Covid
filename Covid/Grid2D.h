@@ -56,10 +56,9 @@ public:
 	}
 	static constexpr float MAX = N;
 	static constexpr float MIN = 0;
-private:
+protected:
 
-	void moveEntities(std::mt19937 &rng) {
-		
+	virtual void setEntitiesTargetVel(std::mt19937 &rng) {
 		for (int r = 0; r < N; r++) {
 			for (int c = 0; c < N; c++) {
 				for (const auto subjectID : getSet(c, r)) {
@@ -68,7 +67,7 @@ private:
 					Util::entity_target_vel_smart(entity, rng);
 					auto lambda = [subjectID, &entity, this](EntityID entityID) {
 						if (subjectID == entityID) return;
-						
+
 						Util::charge_entity(entity, this->entities[entityID]);
 						//Util::charge_entity_wall(entity, MIN, MAX);
 					};
@@ -78,7 +77,10 @@ private:
 				}
 			}
 		}
+	}
 
+	void moveEntities(std::mt19937 &rng) {
+		setEntitiesTargetVel(rng);
 		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
 			const glm::i32vec2 prev_quadrant = getQuad(e.pos);
@@ -185,4 +187,29 @@ private:
 
 	std::array<std::unordered_set<EntityID>, N*N> grid;
 
+};
+
+
+
+template<int N>
+class Grid2DSocial : public Grid2D<N>{
+protected:
+	void setEntitiesTargetVel(std::mt19937 &rng) override {
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < N; c++) {
+				for (const auto subjectID : Grid2D<N>::getSet(c, r)) {
+					auto &entity = Grid2D<N>::entities[subjectID];
+
+					Util::entity_target_vel_smart(entity, rng);
+					auto lambda = [subjectID, &entity, this](Grid::EntityID entityID) {
+						if (subjectID == entityID) return;
+
+						Util::charge_entity(entity, this->entities[entityID]);
+					};
+
+					Util::for_each_neighbors<N>(r, c, Grid2D<N>::grid, lambda);
+				}
+			}
+		}
+	}
 };

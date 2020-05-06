@@ -21,11 +21,8 @@ void print_statistics(const std::vector<Stat::Statistic> &statistics) {
 
 int main(void) { 
 	
-	//std::random_device rd{};
-	//std::mt19937 rng(rd());
-
 	{
-		PlotControl basicPlot("Basic", 69);
+		PlotControl basicPlot("Basic", 123);
 		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1))
 			basicPlot.Start();
 	}

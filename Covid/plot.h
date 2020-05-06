@@ -54,7 +54,7 @@ private:
 
 	olc::Sprite *s = nullptr;
 	olc::Decal *d = nullptr;
-	Grid2D<NUM_GRIDS> grid;
+	Grid2DSocial<NUM_GRIDS> grid;
 
 public:
 	PlotControl(std::string name) : rng(std::random_device()()){

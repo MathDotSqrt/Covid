@@ -34,8 +34,8 @@ constexpr f32 CHARGE_CONSTANT = .00002f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/
-constexpr f32 BETA = 0.07f / 100;
-constexpr f32 GAMMA = 0.07f / 100;
+constexpr f32 BETA = 0.1f / 100;
+constexpr f32 GAMMA = 0.1f / 100;
 
 /*INFECTION RATE*/
 
