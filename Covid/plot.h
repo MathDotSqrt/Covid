@@ -85,11 +85,12 @@ public:
 	bool OnUserUpdate(float delta) override {
 		Clear(olc::BLANK);
 		
-
 		grid.update(rng);
+
 		for (const auto &e : grid.getEntities()) {
 			DrawEntity(*this, e, d);
 		}
+
 
 		return grid.getI().size() > 0;
 	}

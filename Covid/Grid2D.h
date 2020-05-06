@@ -73,7 +73,7 @@ private:
 						//Util::charge_entity_wall(entity, MIN, MAX);
 					};
 
-					Util::for_each_neighbors<N>(r, c, grid, lambda);
+					//Util::for_each_neighbors<N>(r, c, grid, lambda);
 
 				}
 			}
@@ -81,12 +81,12 @@ private:
 
 		for (size_t i = 0; i < entities.size(); i++) {
 			auto &e = entities[i];
-			const glm::i32vec2 prev_quadrant = glm::floor(e.pos);
+			const glm::i32vec2 prev_quadrant = getQuad(e.pos);
 			
 			Util::move_entity(e);
 			Util::clamp_entity(e, MIN, MAX);
 
-			const glm::i32vec2 current_quadrant = glm::floor(e.pos);
+			const glm::i32vec2 current_quadrant = getQuad(e.pos);
 
 			if (current_quadrant != prev_quadrant) {
 				auto &old_set = getSet(prev_quadrant);
@@ -133,16 +133,20 @@ private:
 		}
 	}
 
-	std::unordered_set<i32> &getSet(int c, int r) {
+	glm::i32vec2 getQuad(const glm::vec2 &pos) {
+		return glm::floor(pos);
+	}
+
+	std::unordered_set<EntityID> &getSet(int c, int r) {
 		const int grid_index = c + r * N;
 		return grid[grid_index];
 	}
 
-	std::unordered_set<i32> &getSet(glm::i32vec2 vec) {
+	std::unordered_set<EntityID> &getSet(glm::i32vec2 vec) {
 		return getSet(vec.x, vec.y);
 	}
 
-	void insertSIR(i32 id, Status status) {
+	void insertSIR(EntityID id, Status status) {
 		switch (status) {
 		case Status::SUSCEPTIBLE: S.insert(id); break;
 		case Status::INFECTED: I.insert(id); break;
@@ -150,7 +154,7 @@ private:
 		}
 	}
 
-	void infect(i32 id) {
+	void infect(EntityID id) {
 		auto &e = entities[id];
 		assert(e.status == Status::SUSCEPTIBLE);
 		e.status = Status::INFECTED;
@@ -158,7 +162,7 @@ private:
 		new_I.insert(id);
 	}
 
-	void recover(i32 id) {
+	void recover(EntityID id) {
 		auto &e = entities[id];
 		assert(e.status == Status::INFECTED);
 
@@ -176,9 +180,9 @@ private:
 		return I.erase(iter);
 	}
 
-	std::unordered_set<i32> new_I;
-	std::unordered_set<i32> new_R;
+	std::unordered_set<EntityID> new_I;
+	std::unordered_set<EntityID> new_R;
 
-	std::array<std::unordered_set<i32>, N*N> grid;
+	std::array<std::unordered_set<EntityID>, N*N> grid;
 
 };

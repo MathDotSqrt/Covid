@@ -25,7 +25,7 @@ constexpr f32 t_05_100 = 1.982f;
 /*MATH CONSTANTS*/
 
 /*MOVEMENT CONSTANTS*/
-constexpr f32 MAX_MAGNITUDE = 0.014f;
+constexpr f32 MAX_MAGNITUDE = 0.004f;
 constexpr f32 CHANGE_DIR = .01f;
 
 constexpr f32 MAX_CHARGE_DIST = 1.0f;
@@ -34,8 +34,8 @@ constexpr f32 CHARGE_CONSTANT = .00002f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/
-constexpr f32 BETA = 0.2f / 10;
-constexpr f32 GAMMA = 0.07f / 10;
+constexpr f32 BETA = 0.07f / 100;
+constexpr f32 GAMMA = 0.07f / 100;
 
 /*INFECTION RATE*/
 
