@@ -2,7 +2,7 @@
 #include "plot.h"
 
 void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d) {
-	constexpr float space = float(SCREEN_WIDTH) / Grid2D<NUM_GRIDS>::MAX;
+	constexpr float space = float(SCREEN_WIDTH) / Grid2D::MAX;
 	constexpr float scale = .01f;
 
 	const auto offset = olc::vf2d{ d->sprite->width * scale / 2 , d->sprite->height * scale / 2 };

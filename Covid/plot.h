@@ -9,7 +9,7 @@ private:
 
 	olc::Sprite *s = nullptr;
 	olc::Decal *d = nullptr;
-	Grid2DSocial<NUM_GRIDS> grid;
+	Grid2DSocial grid;
 
 public:
 	PlotControl(std::string name);
