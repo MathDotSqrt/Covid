@@ -156,6 +156,7 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Grid2D.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="plot.cpp" />
     <ClCompile Include="Stat.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>

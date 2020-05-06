@@ -2,11 +2,14 @@
 #include <random>
 #include <iostream>
 
+#define OLC_PGE_APPLICATION
+#include "plot.h"
+
+
 #include "Stat.h"
 #include "common.h"
 #include "Grid2D.h"
-#include "plot.h"
-#include "Experiments.h"
+
 
 
 void print_statistics(const std::vector<Stat::Statistic> &statistics) {
