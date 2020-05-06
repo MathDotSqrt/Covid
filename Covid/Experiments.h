@@ -10,7 +10,7 @@
 namespace Control {
 	template<int N>
 	void populate(Grid2D<N> &grid, int n_S, int n_I, int n_R, std::mt19937 &rng) {
-		std::uniform_real_distribution<f32> U(0, N);
+		std::uniform_real_distribution<f32> U(EPSILON, N - EPSILON);
 
 		for (int i = 0; i < n_S; i++) {
 			Entity e(glm::vec2(U(rng), U(rng)), Status::SUSCEPTIBLE);

@@ -64,7 +64,7 @@ private:
 			for (int c = 0; c < N; c++) {
 				for (const auto subjectID : getSet(c, r)) {
 					auto &entity = entities[subjectID];
-					//entity.vel = glm::vec2(0);
+
 					Util::entity_target_vel_smart(entity, rng);
 					auto lambda = [subjectID, &entity, this](EntityID entityID) {
 						if (subjectID == entityID) return;

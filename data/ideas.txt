@@ -1,0 +1,35 @@
+
+Time line:
+	-Build the model
+	-have presentation done thursday
+
+
+Model deaths in a different way:
+{
+	printf("")
+}
+{
+printf("")
+}
+
+
+Social Distanceing:
+	-repelant forces
+
+
+HOME:
+	-please comminuties (HOMES) 
+	-please zones like super markets
+	-please: going to peoples houses
+
+BAD ACTORS:
+	-Control number of people who actually socail distance (density)
+
+
+COVID DETECTION:
+	-If sick force them home
+
+
+Density:
+	-maybe we can model density
+
