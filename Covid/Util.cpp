@@ -6,9 +6,8 @@ bool Util::random_percent(float percent_true, std::mt19937 &rng) {
 	return U(rng) <= percent_true;
 }
 
-
 glm::vec2 Util::random_vel(float max_mag, std::mt19937 &rng) {
-	const std::uniform_real_distribution<f32> U_MAG(0, MAX_MAGNITUDE);
+	const std::uniform_real_distribution<f32> U_MAG(0, max_mag);
 	const std::uniform_real_distribution<f32> U_DIR(0, 2 * PI);
 
 	const f32 rand_mag = U_MAG(rng);
@@ -29,13 +28,13 @@ void Util::move_entity(Entity &entity) {
 	entity.pos += entity.vel;
 }
 
-void Util::entity_target_vel_random(Entity &entity, std::mt19937 &rng) {
-	entity.vel = Util::random_vel(MAX_MAGNITUDE, rng);
+void Util::entity_target_vel_random(Entity &entity, float max, std::mt19937 &rng) {
+	entity.vel = Util::random_vel(max, rng);
 }
 
-void Util::entity_target_vel_smart(Entity &entity, std::mt19937 &rng) {
+void Util::entity_target_vel_smart(Entity &entity, float max, std::mt19937 &rng) {
 	if (Util::random_percent(CHANGE_DIR, rng)) {
-		entity.vel = random_vel(MAX_MAGNITUDE, rng);
+		entity.vel = random_vel(max, rng);
 	}
 }
 
@@ -57,7 +56,10 @@ T charge_force(const T &a, const T &other) {
 }
 
 void Util::charge_entity(Entity &entity, const Entity &other, float scale) {
-	entity.vel += scale * charge_force<glm::vec2>(entity.pos, other.pos);
+	//if both entities are not bad actors repel
+	if (!entity.bad_actor && !other.bad_actor) {
+		entity.vel += scale * charge_force<glm::vec2>(entity.pos, other.pos);
+	}
 }
 
 void Util::charge_entity_wall(Entity &entity, f32 min, f32 max) {

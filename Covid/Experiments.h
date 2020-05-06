@@ -13,17 +13,20 @@ namespace Control {
 		std::uniform_real_distribution<f32> U(EPSILON, N - EPSILON);
 
 		for (int i = 0; i < n_S; i++) {
-			Entity e(glm::vec2(U(rng), U(rng)), Status::SUSCEPTIBLE);
+			bool bad_actor = Util::random_percent(BAD_ACTOR, rng);
+			Entity e(glm::vec2(U(rng), U(rng)), Status::SUSCEPTIBLE, bad_actor);
 			grid.insert(e);
 		}
 
 		for (int i = 0; i < n_I; i++) {
-			Entity e(glm::vec2(U(rng), U(rng)), Status::INFECTED);
+			bool bad_actor = Util::random_percent(BAD_ACTOR, rng);
+			Entity e(glm::vec2(U(rng), U(rng)), Status::INFECTED, bad_actor);
 			grid.insert(e);
 		}
 
 		for (int i = 0; i < n_R; i++) {
-			Entity e(glm::vec2(U(rng), U(rng)), Status::REMOVED);
+			bool bad_actor = Util::random_percent(BAD_ACTOR, rng);
+			Entity e(glm::vec2(U(rng), U(rng)), Status::REMOVED, bad_actor);
 			grid.insert(e);
 		}
 	}

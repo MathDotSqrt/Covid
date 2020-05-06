@@ -69,7 +69,7 @@ public:
 		s = new olc::Sprite("../data/res/circle.png");
 		d = new olc::Decal(s);
 
-		Control::populate(grid, 5000, 100, 0, rng);
+		Control::populate(grid, 5000, 10, 0, rng);
 		ControlBackground(*this, NUM_GRIDS);
 
 		return true;
