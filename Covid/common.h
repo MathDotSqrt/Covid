@@ -39,7 +39,7 @@ constexpr f32 GAMMA = 0.1f / 100;
 
 /*INFECTION RATE*/
 
-constexpr f32 BAD_ACTOR = 0.01f;
+constexpr f32 BAD_ACTOR = 0.00f;
 
 
 constexpr int NUM_GRIDS = 25;

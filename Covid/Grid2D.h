@@ -185,29 +185,6 @@ protected:
 				for (const auto subjectID : Grid2D<N>::getSet(c, r)) {
 					auto &entity = Grid2D<N>::entities[subjectID];
 
-					Util::entity_target_vel_smart(entity, MAX_MAGNITUDE, rng);
-					auto lambda = [subjectID, &entity, this](Grid::EntityID entityID) {
-						if (subjectID == entityID) return;
-
-						Util::charge_entity(entity, this->entities[entityID]);
-					};
-
-					Util::for_each_neighbors<N>(r, c, Grid2D<N>::grid, lambda);
-				}
-			}
-		}
-	}
-};
-
-template<int N>
-class Grid2DSocialBad : public Grid2D<N> {
-protected:
-	void setEntitiesTargetVel(std::mt19937 &rng) override {
-		for (int r = 0; r < N; r++) {
-			for (int c = 0; c < N; c++) {
-				for (const auto subjectID : Grid2D<N>::getSet(c, r)) {
-					auto &entity = Grid2D<N>::entities[subjectID];
-
 					Util::entity_target_vel_smart(entity, entity.bad_actor ? 10 * MAX_MAGNITUDE : MAX_MAGNITUDE, rng);
 					auto lambda = [subjectID, &entity, this](Grid::EntityID entityID) {
 						if (subjectID == entityID) return;
@@ -215,9 +192,7 @@ protected:
 						Util::charge_entity(entity, this->entities[entityID]);
 					};
 
-
 					Util::for_each_neighbors<N>(r, c, Grid2D<N>::grid, lambda);
-					
 				}
 			}
 		}
