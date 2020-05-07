@@ -17,6 +17,7 @@ namespace Util {
 	void clamp_entity(Entity &entity, f32 min, f32 max);
 	void clamp_entity(Entity &entity, glm::vec2 min, glm::vec2 max);
 	void move_entity(Entity &entity);
+	void random_teleport(Entity &entity, f32 min, f32 max, f32 percent, std::mt19937 &rng);
 	void entity_target_vel_random(Entity &entity, float max, std::mt19937 &rng);
 	void entity_target_vel_smart(Entity &entity, float max, std::mt19937 &rng);
 	

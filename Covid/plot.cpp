@@ -57,7 +57,7 @@ bool PlotControl::OnUserCreate() {
 	s = new olc::Sprite("../data/res/circle.png");
 	d = new olc::Decal(s);
 
-	Control::populate(grid, 5000, 10, 0, rng);
+	Control::populate(grid, 5000, 50, 0, rng);
 	ControlBackground(*this, NUM_GRIDS);
 
 	return true;
@@ -71,6 +71,11 @@ bool PlotControl::OnUserDestroy() {
 
 bool PlotControl::OnUserUpdate(float delta) {
 	Clear(olc::BLANK);
+	static int time_step = 0;
+
+	static int s = 0;
+	static int i = 0;
+	static int r = 0;
 
 	grid.update(rng);
 
@@ -78,6 +83,18 @@ bool PlotControl::OnUserUpdate(float delta) {
 		DrawEntity(*this, e, d);
 	}
 
+	int new_s = grid.getS().size();
+	int new_i = grid.getI().size();
+	int new_r = grid.getR().size();
 
-	return grid.getI().size() > 0 || true;
+	if (new_s != s || new_i != i || new_r != r) {
+		//printf("%d, %d, %d, %d\n", time_step, new_s, new_i, new_r);
+
+		s = new_s;
+		i = new_i;
+		r = new_r;
+	}
+
+	time_step += 1;
+	return grid.getI().size() > 0;
 }

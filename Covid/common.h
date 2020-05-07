@@ -27,6 +27,7 @@ constexpr f32 t_05_100 = 1.982f;
 /*MOVEMENT CONSTANTS*/
 constexpr f32 MAX_MAGNITUDE = 0.004f;
 constexpr f32 CHANGE_DIR = .01f;
+constexpr f32 TELEPORT = .01f;
 
 constexpr f32 MAX_CHARGE_DIST = 1.0f;
 constexpr f32 MAX_CHARGE = .02f;
@@ -39,7 +40,7 @@ constexpr f32 GAMMA = 0.1f / 100;
 
 /*INFECTION RATE*/
 
-constexpr f32 BAD_ACTOR = 0.00f;
+constexpr f32 BAD_ACTOR = 0.5f;
 
 
 constexpr int NUM_GRIDS = 25;

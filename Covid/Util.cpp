@@ -31,6 +31,13 @@ void Util::move_entity(Entity &entity) {
 	entity.pos += entity.vel;
 }
 
+void Util::random_teleport(Entity &entity, f32 min, f32 max, f32 percent, std::mt19937 &rng) {
+	const std::uniform_real_distribution<f32> U(min + EPSILON, max - EPSILON);
+	if (Util::random_percent(percent, rng)) {
+		entity.pos = glm::vec2(U(rng), U(rng));
+	}
+}
+
 void Util::entity_target_vel_random(Entity &entity, float max, std::mt19937 &rng) {
 	entity.vel = Util::random_vel(max, rng);
 }
