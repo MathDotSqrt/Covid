@@ -73,10 +73,6 @@ bool PlotControl::OnUserUpdate(float delta) {
 	Clear(olc::BLANK);
 	static int time_step = 0;
 
-	static int s = 0;
-	static int i = 0;
-	static int r = 0;
-
 	grid.update(rng);
 
 	for (const auto &e : grid.getEntities()) {
@@ -87,13 +83,7 @@ bool PlotControl::OnUserUpdate(float delta) {
 	int new_i = grid.getI().size();
 	int new_r = grid.getR().size();
 
-	if (new_s != s || new_i != i || new_r != r) {
-		//printf("%d, %d, %d, %d\n", time_step, new_s, new_i, new_r);
-
-		s = new_s;
-		i = new_i;
-		r = new_r;
-	}
+	//printf("%d, %d, %d, %d\n", time_step, new_s, new_i, new_r);
 
 	time_step += 1;
 	return grid.getI().size() > 0;

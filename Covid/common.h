@@ -28,6 +28,7 @@ constexpr f32 t_05_100 = 1.982f;
 constexpr f32 MAX_MAGNITUDE = 0.004f;
 constexpr f32 CHANGE_DIR = .01f;
 constexpr f32 TELEPORT = .01f;
+constexpr i32 MAX_SHOP = 50;
 
 constexpr f32 MAX_CHARGE_DIST = 1.0f;
 constexpr f32 MAX_CHARGE = .02f;
@@ -35,18 +36,18 @@ constexpr f32 CHARGE_CONSTANT = .00002f;
 /*MOVEMENT CONSTANTS*/
 
 /*INFECTION RATE*/
-constexpr f32 BETA = 0.5f / 100;
+constexpr f32 BETA = 0.5f / 100 * 10;
 constexpr f32 GAMMA = 0.1f / 100;
 
 /*INFECTION RATE*/
 
-constexpr f32 BAD_ACTOR = 0.5f;
+constexpr f32 BAD_ACTOR = 0.01f;
 
 
 constexpr int NUM_GRIDS = 25;
 
 
-constexpr f32 RADIUS = .3f;	//.3 was golden
+constexpr f32 RADIUS = .25f;	//.3 was golden
 constexpr f32 RADIUS2 = RADIUS * RADIUS;
 
 constexpr int NUM_EXPERIMENTS = 101;

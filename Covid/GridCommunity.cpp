@@ -80,3 +80,41 @@ void GridCommunityFar::moveEntities(std::mt19937 &rng) {
 		}
 	}
 }
+
+void GridCommunityHub::stepInfect(std::mt19937 &rng) {
+	GridCommunity::stepInfect(rng);
+
+	
+	const std::uniform_int_distribution<EntityID> U(0, entities.size() - 1);
+	std::vector<EntityID> shopping;
+	shopping.reserve(MAX_SHOP);
+
+	//printf("hello\n");
+
+	for (int i = 0; i < MAX_SHOP; i++) {
+		EntityID rand_entity_id = U(rng);
+		shopping.push_back(rand_entity_id);
+	}
+	
+	for (int i = 0; i < MAX_SHOP; i++) {
+		const auto subject_index = shopping[i];
+		const auto &subject = entities[subject_index];
+		for (int j = i + 1; j < MAX_SHOP; j++) {
+			const auto infected_index = shopping[j];
+			const auto &infected = entities[infected_index];
+			if (infected.status == Status::INFECTED) {
+				auto subject_shop = subject;
+				auto infected_shop = infected;
+				//make em relative to eachother very close
+				subject_shop.pos = glm::mod(subject_shop.pos, glm::vec2(getQuadWidth()));
+				infected_shop.pos = glm::mod(infected_shop.pos, glm::vec2(getQuadWidth()));
+				if (Util::test_transmission(infected_shop, subject_shop, rng)) {
+					infect(subject_index);
+					break;
+				}
+			
+			}
+		}
+	}
+
+}

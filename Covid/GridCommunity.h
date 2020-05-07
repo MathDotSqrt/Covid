@@ -13,3 +13,8 @@ class GridCommunityFar : public GridCommunity {
 		
 	void moveEntities(std::mt19937 &rng) override;
 };
+
+class GridCommunityHub : public GridCommunityFar {
+	void stepInfect(std::mt19937 &rng) override;
+
+};

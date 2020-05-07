@@ -24,6 +24,24 @@ void print_statistics(const std::vector<Stat::Statistic> &statistics) {
 
 int main(void) { 
 	
+	//std::random_device rd{};
+	//std::mt19937 rng(rd());
+	//Grid2D control{};
+	//Control::populate(control, 5000, 50, 0, rng);
+
+	//std::ofstream out;
+	//out.open("./../data/final_output/output.csv");
+	//
+	//int i = 0;
+	//while (control.getI().size()) {
+	//	control.update(rng);
+	//	out << i << "," << control.getS().size() << "," << control.getI().size() << "," << control.getR().size() << "\n";
+	//	
+
+	//	i++;
+	//}
+	//out.close();
+
 	{
 		PlotControl basicPlot("Basic", 1);
 		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1))
