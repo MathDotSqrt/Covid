@@ -3,7 +3,7 @@
 
 void DrawEntity(olc::PixelGameEngine &engine, const Entity &e, olc::Decal *d) {
 	constexpr float space = float(SCREEN_WIDTH) / Grid2D::MAX;
-	constexpr float scale = .01f;
+	constexpr float scale = .005f;
 
 	const auto offset = olc::vf2d{ d->sprite->width * scale / 2 , d->sprite->height * scale / 2 };
 	const auto pos = olc::vf2d{ e.pos.x, e.pos.y } *space - offset;
@@ -73,7 +73,9 @@ bool PlotControl::OnUserUpdate(float delta) {
 	Clear(olc::BLANK);
 	static int time_step = 0;
 
-	grid.update(rng);
+	for (int i = 0; i < 1; i++) {
+		grid.update(rng);
+	}
 
 	for (const auto &e : grid.getEntities()) {
 		DrawEntity(*this, e, d);
@@ -83,6 +85,11 @@ bool PlotControl::OnUserUpdate(float delta) {
 	int new_i = grid.getI().size();
 	int new_r = grid.getR().size();
 
+
+	if (time_step == 0) {
+		std::cout << "Pause...";
+		std::cin.get();
+	}
 	//printf("%d, %d, %d, %d\n", time_step, new_s, new_i, new_r);
 
 	time_step += 1;

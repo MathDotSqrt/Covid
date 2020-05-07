@@ -42,10 +42,14 @@ int main(void) {
 	//}
 	//out.close();
 
+	
+
 	{
 		PlotControl basicPlot("Basic", 1);
-		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1))
+		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 4, 4)) {
+			
 			basicPlot.Start();
+		}
 	}
 
 	//std::vector<Stat::Statistic> statistics;
@@ -54,8 +58,8 @@ int main(void) {
 	//	Stat::print_stat(statistics.back());
 	//}
 	//print_statistics(statistics);
-	std::cout << "Pause...";
-	std::cin.get();
+	/*std::cout << "Pause...";
+	std::cin.get();*/
 	return 0;
 }
 

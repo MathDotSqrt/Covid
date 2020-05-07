@@ -10,7 +10,9 @@ private:
 
 	olc::Sprite *s = nullptr;
 	olc::Decal *d = nullptr;
-	GridCommunityHub grid;
+	//Grid2D grid;
+	Grid2DSocial grid;
+	//GridCommunityHubRemove grid;
 
 public:
 	PlotControl(std::string name);
