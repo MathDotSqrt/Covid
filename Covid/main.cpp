@@ -12,7 +12,6 @@ Social:
 #include <iostream>
 #include <thread>
 #include <mutex>
-#include <atomic>
 #include <chrono>
 
 
@@ -46,16 +45,13 @@ Stat::Statistic run_experiment(std::mt19937 &rng) {
 }
 
 template<typename T>
-void worker_thread(ThreadVector *vector, std::atomic<int> *count, i32 num_experiments, i64 seed) {
+void worker_thread(ThreadVector *vector, i32 block_size, i64 seed) {
 	std::mt19937 rng(seed);
 
 	std::vector<Stat::Statistic> statistics;
-	int own_count = 0;
 
-	while (*count < num_experiments) {
+	for (int i = 0; i < block_size; i++) {
 		statistics.push_back(run_experiment<T>(rng));
-		(*count) += 1;
-		own_count++;
 	}
 
 	auto &global_vector = vector->first;
@@ -66,24 +62,24 @@ void worker_thread(ThreadVector *vector, std::atomic<int> *count, i32 num_experi
 		global_vector.insert(global_vector.end(), statistics.begin(), statistics.end());
 	}
 
-
-	std::cout << "Thread Exit. Num Experiments Performed = " << own_count << "\n";
+	std::cout << "Thread Exit.\n";
 }
 
 template<typename T>
 void launch(int num_threads, int num_experiments, std::mt19937 &rng) {
 	
+	const auto BLOCK_SIZE = (i32)glm::ceil((f32)num_experiments / num_threads);
+
 	ThreadVector worker_output;
-	std::atomic<int> count = 0;
 
 	std::vector<std::thread> workers;
 
 	for (int i = 0; i < num_threads - 1; i++) {
-		std::cout << "Launching Thread[" << i << "]\n";
-		workers.emplace_back(&worker_thread<T>, &worker_output, &count, num_experiments, rng());
+		std::cout << "Launching Thread[" << i << "] Block_Size = " << BLOCK_SIZE << "\n";
+		workers.emplace_back(&worker_thread<T>, &worker_output, BLOCK_SIZE, rng());
 	}
-	std::cout << "Launching Thread[" << num_threads-1 << "]\n";
-	workers.emplace_back(&worker_thread<T>, &worker_output, &count, num_experiments, rng());
+	std::cout << "Launching Thread[" << num_threads-1 << "] Block_Size =" << num_experiments - BLOCK_SIZE * (NUM_THREADS - 1)  <<"\n";
+	workers.emplace_back(&worker_thread<T>, &worker_output, num_experiments - BLOCK_SIZE * (NUM_THREADS - 1), rng());
 
 	for (int i = 0; i < num_threads; i++) {
 		workers[i].join();
