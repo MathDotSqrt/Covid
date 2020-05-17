@@ -27,7 +27,7 @@ private:
 
 
 	//Grid2D grid;
-	GridCommunityHubRemove grid;
+	Grid2D grid;
 	//GridCommunityHubRemove grid;
 
 public:

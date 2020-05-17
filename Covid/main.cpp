@@ -7,9 +7,6 @@ Social:
 
 */
 
-
-
-
 #include <stdio.h>
 #include <random>
 #include <iostream>
