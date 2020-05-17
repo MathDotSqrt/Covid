@@ -25,7 +25,7 @@ private:
 	
 	
 	*/
-	Grid2D grid;
+	Grid2DSocial grid;
 
 public:
 	PlotControl(std::string name);

@@ -78,7 +78,7 @@ bool PlotControl::OnUserUpdate(float delta) {
 	}
 
 	for (const auto &e : grid.getEntities()) {
-		//DrawEntity(*this, e, d);
+		DrawEntity(*this, e, d);
 	}
 
 	int new_s = grid.getS().size();

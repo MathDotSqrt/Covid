@@ -68,18 +68,20 @@ void worker_thread(ThreadVector *vector, i32 block_size, i64 seed) {
 template<typename T>
 void launch(int num_threads, int num_experiments, std::mt19937 &rng) {
 	
-	const auto BLOCK_SIZE = (i32)glm::ceil((f32)num_experiments / num_threads);
+	const auto FLOOR = (i32)glm::floor((f32)num_experiments / num_threads);
+	const auto MOD = num_experiments % num_threads;
 
 	ThreadVector worker_output;
 
 	std::vector<std::thread> workers;
 
-	for (int i = 0; i < num_threads - 1; i++) {
+	for (int i = 0; i < num_threads; i++) {
+
+		const int BLOCK_SIZE = FLOOR + (i < MOD ? 1 : 0);
+
 		std::cout << "Launching Thread[" << i << "] Block_Size = " << BLOCK_SIZE << "\n";
 		workers.emplace_back(&worker_thread<T>, &worker_output, BLOCK_SIZE, rng());
 	}
-	std::cout << "Launching Thread[" << num_threads-1 << "] Block_Size =" << num_experiments - BLOCK_SIZE * (NUM_THREADS - 1)  <<"\n";
-	workers.emplace_back(&worker_thread<T>, &worker_output, num_experiments - BLOCK_SIZE * (NUM_THREADS - 1), rng());
 
 	for (int i = 0; i < num_threads; i++) {
 		workers[i].join();
@@ -121,17 +123,21 @@ void fileout(std::mt19937 &rng) {
 int main(void) { 
 	using namespace std::chrono;
 
-	std::mt19937 rng(12371237);
-	
-	const auto start = high_resolution_clock::now();
+	for (int i = 4; i <= 16; i++) {
+		std::mt19937 rng(12371237);
 
-	launch<Grid2DSocial>(NUM_THREADS, NUM_EXPERIMENTS, rng);
-	//visual(rng);
-	//fileout<Grid2D>(rng);
+		const auto start = high_resolution_clock::now();
 
-	const auto end = high_resolution_clock::now();
+		launch<Grid2DSocial>(i, NUM_EXPERIMENTS, rng);
+		//visual(rng);
+		//fileout<Grid2D>(rng);
+
+		const auto end = high_resolution_clock::now();
+
+		std::cout << "Total execution time: " << duration_cast<seconds>(end - start).count() << "s\n";
+	}
+
 	
-	std::cout << "Total execution time: " << duration_cast<seconds>(end - start).count() << "s\n";
 	std::cout << "Pause...";
 	std::cin.get();
 	return 0;
