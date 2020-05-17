@@ -4,6 +4,7 @@
 #include "Experiments.h"
 #include "GridCommunity.h"
 
+
 class PlotControl : public olc::PixelGameEngine {
 private:
 	std::mt19937 rng;
@@ -24,11 +25,7 @@ private:
 	
 	
 	*/
-
-
-	//Grid2D grid;
 	Grid2D grid;
-	//GridCommunityHubRemove grid;
 
 public:
 	PlotControl(std::string name);

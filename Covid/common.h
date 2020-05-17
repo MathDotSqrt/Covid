@@ -51,8 +51,8 @@ constexpr i32 MAX_SHOP = 0;						//Maximum occupancy in hub zones
 
 /*DETAIL*/
 constexpr int NUM_GRIDS = 25;
-
 constexpr int NUM_EXPERIMENTS = 101;
+constexpr int NUM_THREADS = 8;
 
 constexpr i32 SCREEN_WIDTH = 1024 / 2;
 constexpr i32 SCREEN_HEIGHT = 1024 / 2;
