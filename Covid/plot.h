@@ -10,8 +10,24 @@ private:
 
 	olc::Sprite *s = nullptr;
 	olc::Decal *d = nullptr;
+
+	/*
+	
+	Control
+	Social Distancing
+	Social Distancing (Bad)
+	Community
+	Community (Bad)
+	Community Hub (Low)
+	Community Hub (High)
+	Community Hub (High)(Testing & Removal)
+	
+	
+	*/
+
+
 	//Grid2D grid;
-	Grid2DSocial grid;
+	GridCommunityHubRemove grid;
 	//GridCommunityHubRemove grid;
 
 public:

@@ -1,0 +1,10 @@
+/*INFECTION RATE*/
+constexpr f32 BETA = 0.05f;
+constexpr f32 GAMMA = 0.001f;
+/*INFECTION RATE*/
+
+//Initial Suceptible 5000
+//Initial Infected 50
+constexpr f32 BAD_ACTOR = 0.00f;
+constexpr f32 TEST_ACCURACY_RATE = 0.000f;
+constexpr i32 MAX_SHOP = 0;

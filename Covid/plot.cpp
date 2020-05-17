@@ -57,7 +57,7 @@ bool PlotControl::OnUserCreate() {
 	s = new olc::Sprite("../data/res/circle.png");
 	d = new olc::Decal(s);
 
-	Control::populate(grid, 5000, 50, 0, rng);
+	Control::populate(grid, SUSCEPTIBLE, INFECTED, 0, rng);
 	ControlBackground(*this, NUM_GRIDS);
 
 	return true;
