@@ -31,7 +31,7 @@ Stat::Statistic run_experiment(std::mt19937 &rng) {
 	Control::populate(control, SUSCEPTIBLE, INFECTED, 0, rng);
 
 	int i = 0;
-	while (control.getI().size()) {
+	while (control.getI().size() > 10) {
 		control.update(rng);
 		i++;
 	}
@@ -125,7 +125,7 @@ int main(void) {
 	
 	const auto start = high_resolution_clock::now();
 
-	launch<Grid2D>(NUM_THREADS, NUM_EXPERIMENTS, rng);
+	launch<Grid2DSocial>(NUM_THREADS, NUM_EXPERIMENTS, rng);
 	//visual(rng);
 	//fileout<Grid2D>(rng);
 
