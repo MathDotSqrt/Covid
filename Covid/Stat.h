@@ -11,6 +11,7 @@ namespace Stat {
 		f64 num_susceptible = 0;
 		f64 num_removed = 0;
 		f64 num_steps = 0;
+		f64 peak_infected = 0;
 
 		Statistic operator+ (const Statistic &rhs) const;
 		Statistic operator- (const Statistic &rhs) const;
@@ -39,4 +40,5 @@ namespace Stat {
 	}
 
 	void print_stat(const Statistic &s);
+	void print_stats(const std::vector<Statistic> &s, std::string fileout); 
 }

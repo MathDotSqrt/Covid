@@ -32,15 +32,19 @@ Stat::Statistic run_experiment(std::mt19937 &rng) {
 	Control::populate(control, SUSCEPTIBLE, INFECTED, 0, rng);
 
 	//update experiment until infected threshold is met
+	Stat::Statistic s;
+
 	int i = 0;
-	while (control.getI().size() > 10) {
+	while (control.getI().size()) {
 		control.update(rng);
+		if (s.peak_infected < control.getI().size()) {
+			s.peak_infected = control.getI().size();
+		}
 		i++;
 	}
 
 
 	//statistics collected
-	Stat::Statistic s;
 	s.num_steps = i;
 	s.num_susceptible = control.getS().size();
 	s.num_removed = control.getR().size();
@@ -74,7 +78,7 @@ void worker_thread(ThreadVector *vector, i32 block_size, i64 seed) {
 }
 
 template<typename T>
-void launch(int num_threads, int num_experiments, std::mt19937 &rng) {
+void launch(int num_threads, int num_experiments, std::mt19937 &rng, std::string fileout) {
 	
 	const auto FLOOR = (i32)glm::floor((f32)num_experiments / num_threads);
 	const auto MOD = num_experiments % num_threads;
@@ -102,14 +106,14 @@ void launch(int num_threads, int num_experiments, std::mt19937 &rng) {
 
 
 	std::cout << "Total Stats: " << worker_output.first.size() << "\n";
-	//do statistics
+	Stat::print_stats(worker_output.first, fileout);
 }
 
 
 void visual(std::mt19937 &rng) {
 	{
 		PlotControl basicPlot("Basic", 1);
-		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 4,4)) {
+		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1)) {
 		
 			basicPlot.Start();
 		}
@@ -144,8 +148,9 @@ int main(void) {
 	const auto start = high_resolution_clock::now();
 
 	//Launch one of them to run experiment
-	//launch<Grid2DSocial>(NUM_THREADS, NUM_EXPERIMENTS, rng);
-	visual(rng);
+	launch<Grid2D>(NUM_THREADS, NUM_EXPERIMENTS, rng, 
+		"./../data/final_output/grid2d.csv");
+	//visual(rng);
 	//fileout<Grid2D>(rng);
 
 	const auto end = high_resolution_clock::now();
@@ -155,7 +160,7 @@ int main(void) {
 
 	//pause execution when program ends
 	std::cout << "Pause...";
-	//std::cin.get();
+	std::cin.get();
 	return 0;
 }
 

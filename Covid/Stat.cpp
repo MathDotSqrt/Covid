@@ -1,5 +1,8 @@
 #include "Stat.h"
 #include <random>
+#include <stdio.h>
+
+#include <fstream>
 
 Stat::Statistic Stat::Statistic::operator+(const Stat::Statistic &rhs) const {
 	return {
@@ -67,4 +70,17 @@ Stat::Statistic Stat::sample_variance(const Stat::Statistic &sample_mean, const 
 
 void Stat::print_stat(const Statistic &s) {
 	std::cout << "susceptible: " << s.num_susceptible << " removed: " << s.num_removed << " steps: " << s.num_steps << '\n';
+}
+
+void Stat::print_stats(const std::vector<Statistic> &a, std::string fileout) {
+	std::ofstream out;
+	out.open(fileout);
+
+
+	out << "num_susceptible,num_removed,num_steps,peak_infected\n";
+	
+	for (const auto &line : a) {
+		out << line.num_susceptible << "," << line.num_susceptible << "," << line.num_steps << "," << line.peak_infected << "\n";
+	}
+	out.close();
 }

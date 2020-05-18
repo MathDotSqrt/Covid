@@ -48,7 +48,7 @@ namespace Util {
 	}
 
 	template<typename T>
-	void move_elements(T &dest, T &source) {
+	void insert_elements(T &dest, T &source) {
 		for (const auto id : source) {
 			dest.insert(id);
 		}

@@ -16,8 +16,8 @@ void Grid2D::update(std::mt19937 &rng) {
 	moveEntities(rng);
 	stepInfect(rng);
 	stepRemove(rng);
-	Util::move_elements(I, new_I);
-	Util::move_elements(R, new_R);
+	Util::insert_elements(I, new_I);
+	Util::insert_elements(R, new_R);
 }
 
 void Grid2D::clear() {

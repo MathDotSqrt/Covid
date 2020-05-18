@@ -46,8 +46,8 @@ constexpr f32 RADIUS2 = RADIUS * RADIUS;		//Radius Squared
 constexpr i32 SUSCEPTIBLE = 5000;				//Initial population Susceptible
 constexpr i32 INFECTED = 50;					//Initial population infected
 constexpr f32 BAD_ACTOR = 0.00f;				//Proportion of population who are bad bois
-constexpr f32 TEST_ACCURACY_RATE = 0.005f;		//Testing accuracy rate for covid test
-constexpr i32 MAX_SHOP = 20;					//Maximum occupancy in hub zones
+constexpr f32 TEST_ACCURACY_RATE = 0.000f;		//Testing accuracy rate for covid test
+constexpr i32 MAX_SHOP = 0;						//Maximum occupancy in hub zones
 /*AGENT PARAMETERS*/
 
 /*DETAIL*/
