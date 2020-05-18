@@ -4,7 +4,7 @@ Grid::EntityID Grid2D::insert(Entity e) {
 	entities.push_back(e);
 	auto id = entities.size() - 1;
 
-	glm::i32vec2 quadrant = glm::floor(e.pos);
+	glm::i32vec2 quadrant = Grid2D::getQuad(e.pos);
 	getSet(quadrant).insert(id);
 
 
@@ -109,7 +109,8 @@ void Grid2D::stepRemove(std::mt19937 &rng) {
 }
 
 glm::i32vec2 Grid2D::getQuad(const glm::vec2 &pos) {
-	return glm::floor(pos);
+	
+	return glm::floor(pos * ((f32)NUM_GRIDS /GRID_WIDTH));
 }
 
 std::unordered_set<Grid::EntityID> &Grid2D::getSet(int c, int r) {

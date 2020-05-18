@@ -145,7 +145,7 @@ void GridCommunityHubRemove::stepInfect(std::mt19937 &rng) {
 	GridCommunityHub::stepInfect(rng);
 
 
-	const std::uniform_int_distribution<EntityID> U(0, NUM_GRIDS);
+	const std::uniform_int_distribution<EntityID> U(0, entities.size() - 1);
 	std::vector<EntityID> shopping;
 	shopping.reserve(MAX_SHOP);
 

@@ -20,7 +20,7 @@ public:
 	
 	f32 getQuadWidth() const;
 
-	static constexpr float MAX = NUM_GRIDS;
+	static constexpr float MAX = GRID_WIDTH;
 	static constexpr float MIN = 0;
 protected:
 	std::unordered_set<EntityID> new_I;

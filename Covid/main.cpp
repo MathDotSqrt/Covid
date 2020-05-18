@@ -144,16 +144,18 @@ int main(void) {
 	const auto start = high_resolution_clock::now();
 
 	//Launch one of them to run experiment
-	launch<Grid2DSocial>(NUM_THREADS, NUM_EXPERIMENTS, rng);
-	//visual(rng);
+	//launch<Grid2DSocial>(NUM_THREADS, NUM_EXPERIMENTS, rng);
+	visual(rng);
 	//fileout<Grid2D>(rng);
 
 	const auto end = high_resolution_clock::now();
 
 	std::cout << "Total execution time: " << duration_cast<seconds>(end - start).count() << "s\n";
 	
+
+	//pause execution when program ends
 	std::cout << "Pause...";
-	std::cin.get();
+	//std::cin.get();
 	return 0;
 }
 
