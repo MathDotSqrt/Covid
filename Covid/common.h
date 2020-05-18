@@ -17,8 +17,8 @@ typedef float f32;
 typedef double f64;
 
 /*MATH CONSTANTS*/
-constexpr f32 PI = 3.14159265359f;
-constexpr f32 EPSILON = 0.1f;
+constexpr f32 PI = 3.14159265359f;				//Good ole PI
+constexpr f32 EPSILON = 0.1f;					//Pretty large epsilon lmao
 
 constexpr f32 t_05_5 = 2.571f;
 constexpr f32 t_05_100 = 1.982f;
@@ -52,10 +52,16 @@ constexpr i32 MAX_SHOP = 20;					//Maximum occupancy in hub zones
 
 /*DETAIL*/
 constexpr int GRID_WIDTH = 25;					//Spacial Width of entire map
-constexpr int NUM_GRIDS = 25;					//Number of spacial partitions in grid NOTE: (GRID_WIDTH / NUM_GRIDS) >= RADIUS or else model is inaccurate.
+constexpr int NUM_GRIDS = 25;					//Number of spacial partitions in grid. The larger the faster the model computes (Substantially)
 constexpr int NUM_EXPERIMENTS = 101;			//Number of experiments to run for our statistical analysis
 constexpr int NUM_THREADS = 8;					//Number of worker threads to run. Should be equal to the number of cores on your cpu
 
 constexpr i32 SCREEN_WIDTH = 1024 / 2;			//Size of visual window
 constexpr i32 SCREEN_HEIGHT = 1024 / 2;			//Size of visual window
 /*DETAIL*/
+
+/*
+	NOTE: (GRID_WIDTH / NUM_GRIDS) >= RADIUS or else model is inaccurate for control.
+	NOTE: (GRID_WIDTH / NUM_GRIDS) >= MAX_CHARGE_DIST or else social distancing algorithm becomes instable 
+	NOTE: GRID_WIDTH affects the size of hub zones so it effects community based models. 
+*/

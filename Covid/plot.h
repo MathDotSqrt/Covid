@@ -25,7 +25,7 @@ private:
 	
 	
 	*/
-	GridCommunityHubRemove grid;
+	Grid2D grid;
 
 public:
 	PlotControl(std::string name);

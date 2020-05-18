@@ -81,7 +81,7 @@ void Util::charge_entity_wall(Entity &entity, f32 min, f32 max) {
 
 bool Util::test_transmission(const Entity &infected, const Entity &subject, std::mt19937 &rng) {
 	return subject.status == Status::SUSCEPTIBLE
-		&& glm::distance(infected.pos, subject.pos) <= RADIUS
+		&& glm::distance2(infected.pos, subject.pos) <= RADIUS2
 		&& Util::random_percent(BETA, rng);
 }
 
