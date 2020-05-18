@@ -1,5 +1,6 @@
 #pragma once
 
+//types for integral types
 typedef unsigned char u8;
 typedef signed char i8;
 
@@ -50,10 +51,10 @@ constexpr i32 MAX_SHOP = 0;						//Maximum occupancy in hub zones
 /*AGENT PARAMETERS*/
 
 /*DETAIL*/
-constexpr int NUM_GRIDS = 25;
-constexpr int NUM_EXPERIMENTS = 101;
-constexpr int NUM_THREADS = 8;
+constexpr int NUM_GRIDS = 25;					//Spacial constant for number of spacial partitions in grid
+constexpr int NUM_EXPERIMENTS = 101;			//Number of experiments to run for our statistical analysis
+constexpr int NUM_THREADS = 8;					//Number of worker threads to run. Should be equal to the number of cores on your cpu
 
-constexpr i32 SCREEN_WIDTH = 1024 / 2;
-constexpr i32 SCREEN_HEIGHT = 1024 / 2;
+constexpr i32 SCREEN_WIDTH = 1024 / 2;			//Size of visual window
+constexpr i32 SCREEN_HEIGHT = 1024 / 2;			//Size of visual window
 /*DETAIL*/
