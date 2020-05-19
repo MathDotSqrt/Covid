@@ -31,6 +31,7 @@ main.cpp: launches the model
 plot.h:   defines what version of the model to run visually
 
 
---If you do not have visual studios please email me at ctrenkov@gmu.edu becuase building this project with out visual
-studio is not trivial
+--If you do not have visual studios please email me at ctrenkov@gmu.edu so we can work out a way to build the model on your machine. 
+
+Let me know if there are other issues. 
 
