@@ -56,9 +56,6 @@
     <ClInclude Include="Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="matplotlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="plot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
