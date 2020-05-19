@@ -148,8 +148,15 @@ int main(void) {
 	const auto start = high_resolution_clock::now();
 
 	//Launch one of them to run experiment
-	launch<Grid2D>(NUM_THREADS, NUM_EXPERIMENTS, rng, 
-		"./../data/final_output/grid2d.csv");
+	launch<GridCommunity>(NUM_THREADS, NUM_EXPERIMENTS, rng,
+		"./../data/final_output/pair_t/community.csv");
+
+	launch<GridCommunityFar>(NUM_THREADS, NUM_EXPERIMENTS, rng, 
+		"./../data/final_output/pair_t/community_bad01.csv");
+
+	launch<GridCommunityHub>(NUM_THREADS, NUM_EXPERIMENTS, rng,
+		"./../data/final_output/pair_t/community_hub_high.csv");
+
 	//visual(rng);
 	//fileout<Grid2D>(rng);
 

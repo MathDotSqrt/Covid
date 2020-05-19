@@ -25,6 +25,8 @@ public:
 protected:
 	std::unordered_set<EntityID> new_I;
 	std::unordered_set<EntityID> new_R;
+
+	//spacially partitioned datastructure
 	std::array<std::unordered_set<EntityID>, NUM_GRIDS*NUM_GRIDS> grid;
 	
 	virtual void setEntitiesTargetVel(std::mt19937 &rng);
@@ -43,7 +45,7 @@ protected:
 };
 
 
-
+//class implements social distancing
 class Grid2DSocial : public Grid2D{
 protected:
 	void setEntitiesTargetVel(std::mt19937 &rng) override;

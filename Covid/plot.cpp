@@ -70,6 +70,8 @@ bool PlotControl::OnUserDestroy() {
 }
 
 bool PlotControl::OnUserUpdate(float delta) {
+	//updates every frame
+	
 	Clear(olc::BLANK);
 	static int time_step = 0;
 

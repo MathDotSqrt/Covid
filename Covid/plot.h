@@ -25,8 +25,14 @@ private:
 	
 	
 	*/
-	Grid2D grid;
 
+	//uncomment one of these to run that form of simulation
+	Grid2D grid;				//control
+	//Grid2DSocial grid;		//social distancinv
+	//GridCommunity grid;		//community
+	//GridCommunityFar grid;	//comunaity with bad actors teleporting
+	//GridCommunityHub grid;	//community with hub zones
+	//GridCommunityHubRemove grid;	//grid community with testing
 public:
 	PlotControl(std::string name);
 	PlotControl(std::string name, u32 seed);

@@ -7,6 +7,8 @@
 
 
 namespace Stat {
+	
+	//stores our statistics, over built and unused really. 
 	struct Statistic {
 		f64 num_susceptible = 0;
 		f64 num_removed = 0;
