@@ -27,8 +27,8 @@ private:
 	*/
 
 	//uncomment one of these to run that form of simulation
-	Grid2D grid;				//control
-	//Grid2DSocial grid;		//social distancinv
+	//Grid2D grid;				//control
+	Grid2DSocial grid;		//social distancinv
 	//GridCommunity grid;		//community
 	//GridCommunityFar grid;	//comunaity with bad actors teleporting
 	//GridCommunityHub grid;	//community with hub zones

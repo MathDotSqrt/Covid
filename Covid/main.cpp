@@ -78,7 +78,7 @@ void worker_thread(ThreadVector *vector, i32 block_size, i64 seed) {
 }
 
 template<typename T>
-void launch(int num_threads, int num_experiments, std::mt19937 &rng, std::string fileout) {
+void launch(int num_threads, int num_experiments, std::mt19937 &rng, std::string fileout = "") {
 	
 	const auto FLOOR = (i32)glm::floor((f32)num_experiments / num_threads);
 	const auto MOD = num_experiments % num_threads;
@@ -106,14 +106,16 @@ void launch(int num_threads, int num_experiments, std::mt19937 &rng, std::string
 
 
 	std::cout << "Total Stats: " << worker_output.first.size() << "\n";
-	Stat::print_stats(worker_output.first, fileout);
+	
+	if(fileout.length() > 0)
+		Stat::print_stats(worker_output.first, fileout);
 }
 
 
 void visual(std::mt19937 &rng) {
 	{
 		PlotControl basicPlot("Basic", 1);
-		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 1, 1)) {
+		if (basicPlot.Construct(SCREEN_WIDTH, SCREEN_HEIGHT, 2, 2)) {
 		
 			basicPlot.Start();
 		}
@@ -148,16 +150,9 @@ int main(void) {
 	const auto start = high_resolution_clock::now();
 
 	//Launch one of them to run experiment
-	launch<GridCommunity>(NUM_THREADS, NUM_EXPERIMENTS, rng,
-		"./../data/final_output/pair_t/community.csv");
-
-	launch<GridCommunityFar>(NUM_THREADS, NUM_EXPERIMENTS, rng, 
-		"./../data/final_output/pair_t/community_bad01.csv");
-
-	launch<GridCommunityHub>(NUM_THREADS, NUM_EXPERIMENTS, rng,
-		"./../data/final_output/pair_t/community_hub_high.csv");
-
-	//visual(rng);
+	//launch<Grid2D>(NUM_THREADS, NUM_EXPERIMENTS, rng);
+	//launch<Grid2DSocial>(NUM_THREADS, NUM_EXPERIMENTS, rng);
+	visual(rng);
 	//fileout<Grid2D>(rng);
 
 	const auto end = high_resolution_clock::now();
